@@ -1,4 +1,5 @@
 ﻿using TourPlanner.Services;
+using TourPlanner.Services.Greet;
 
 namespace TourPlanner.ViewModels
 {

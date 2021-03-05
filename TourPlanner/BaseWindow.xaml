@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner"
         xmlns:views="clr-namespace:TourPlanner.Views"
+        xmlns:factory="clr-namespace:TourPlanner.Helper.Factory"
+        xmlns:vmFactory="clr-namespace:TourPlanner.ViewModels.Factory"
         mc:Ignorable="d"
-        Title="BaseWindow" Height="450" Width="800">
+        Title="BaseWindow" Height="450" Width="800"
+        factory:ViewModelLoader.FactoryType="{x:Type vmFactory:BaseWindowViewModelFactory}">
     <Grid>
         <Frame
             VerticalAlignment="Top"

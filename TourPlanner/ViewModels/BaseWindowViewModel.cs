@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourPlanner.Services
+namespace TourPlanner.ViewModels
 {
-    public interface IGreetService
+    public class BaseWindowViewModel : BaseViewModel
     {
-        string Greet();
+
     }
 }

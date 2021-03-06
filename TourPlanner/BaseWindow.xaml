@@ -24,7 +24,10 @@
                 <Menu.ItemTemplate>
                     <DataTemplate>
                         <MenuItem
-                            Header="{Binding Name}">
+                            Header="{Binding Name}"
+                            Command="{Binding Path=DataContext.MenuItemClickedCommand, 
+                                RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                            CommandParameter="{Binding .}">
                             <MenuItem.Icon>
                                 <Image
                                     Source="{Binding IconPath}"></Image>
@@ -42,12 +45,11 @@
         </DockPanel>
 
         <Frame
+            NavigationUIVisibility="Hidden"
             Grid.Column="1"
             VerticalAlignment="Top"
-            Margin="10px">
-            <Frame.Content>
-                <views:HomeView/>
-            </Frame.Content>
+            Margin="10px"
+            Content="{Binding Path=CurrentPage, Mode=TwoWay}">
         </Frame>
     </Grid>
 </Window>

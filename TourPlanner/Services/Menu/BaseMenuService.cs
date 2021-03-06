@@ -16,11 +16,13 @@ namespace TourPlanner.Services.Menu
             new MenuItem()
             {
                 Name = "Home",
+                IconPath = "/TourPlanner;component/Images/home.png",
                 ContentPage = () => new HomeView()
             },
             new MenuItem()
             {
                 Name = "Settings",
+                IconPath = "/TourPlanner;component/Images/settings.png",
                 ContentPage = () => new SettingsView()
             }
         };

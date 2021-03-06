@@ -10,6 +10,8 @@ namespace TourPlanner.Models.Menu
     public class MenuItem
     {
         public string Name { get; set; }
+
+        public string IconPath { get; set; }
         public Func<Page> ContentPage { get; set; }
     }
 }

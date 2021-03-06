@@ -11,7 +11,38 @@
         Title="BaseWindow" Height="450" Width="800"
         factory:ViewModelLoader.FactoryType="{x:Type vmFactory:BaseWindowViewModelFactory}">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!--Menu-->
+        <DockPanel
+            Grid.Column="0">
+            <Menu
+                ItemsSource="{Binding MenuItems}">
+                <Menu.ItemTemplate>
+                    <DataTemplate>
+                        <MenuItem
+                            Header="{Binding Name}">
+                            <MenuItem.Icon>
+                                <Image
+                                    Source="{Binding IconPath}"></Image>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </DataTemplate>
+                </Menu.ItemTemplate>
+
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical"></VirtualizingStackPanel>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+            </Menu>
+        </DockPanel>
+
         <Frame
+            Grid.Column="1"
             VerticalAlignment="Top"
             Margin="10px">
             <Frame.Content>

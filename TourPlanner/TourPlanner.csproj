@@ -16,4 +16,8 @@
     <Resource Include="Images\settings.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
 </Project>

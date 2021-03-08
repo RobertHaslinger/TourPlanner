@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TourPlanner.Helper;
 using TourPlanner.Helper.Factory;
+using TourPlanner.Services.Prediction;
 
 namespace TourPlanner.ViewModels.Factory
 {
@@ -13,6 +15,10 @@ namespace TourPlanner.ViewModels.Factory
         public object CreateViewModel(DependencyObject sender)
         {
             CreateTourViewModel vm = new CreateTourViewModel();
+            if (true || Designer.IsDesignMode)
+            {
+                vm.ServiceLocator.RegisterService<IPredictionService>(new DesignerPredictionService());
+            }
             return vm;
         }
     }

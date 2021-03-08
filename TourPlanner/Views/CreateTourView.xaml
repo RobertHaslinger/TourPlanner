@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:TourPlanner.Views"
         xmlns:factory="clr-namespace:TourPlanner.Helper.Factory"
         xmlns:factory1="clr-namespace:TourPlanner.ViewModels.Factory"
+        xmlns:extensions="clr-namespace:TourPlanner.Extensions"
         mc:Ignorable="d"
         Title="Create a new Tour" Height="450" Width="800"
         factory:ViewModelLoader.FactoryType="{x:Type factory1:CreateTourViewModelFactory}">
@@ -19,8 +20,19 @@
                 MinWidth="50">Start:</Label>
             <TextBox
                 MinWidth="200"
+                extensions:FocusExtension.IsFocused="{Binding IsStartLabelFocused}"
                 Text="{Binding StartLocation, Mode=TwoWay}"></TextBox>
         </StackPanel>
+        <ListView
+            BorderThickness="2">
+            <!--<ListView.ItemTemplate>
+                <DataTemplate>
+                    <Label>Item</Label>
+                </DataTemplate>
+            </ListView.ItemTemplate>-->
+            <Label>Item</Label>
+            <Label>Item</Label>
+        </ListView>
 
         <!--End Location-->
         <StackPanel
@@ -30,6 +42,7 @@
                 MinWidth="50">End:</Label>
             <TextBox
                 MinWidth="200"
+                extensions:FocusExtension.IsFocused="{Binding IsEndLabelFocused}"
                 Text="{Binding EndLocation, Mode=TwoWay}"></TextBox>
         </StackPanel>
     </StackPanel>

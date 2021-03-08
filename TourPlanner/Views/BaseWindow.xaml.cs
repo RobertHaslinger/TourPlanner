@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TourPlanner
+namespace TourPlanner.Views
 {
     /// <summary>
     /// Interaction logic for BaseWindow.xaml

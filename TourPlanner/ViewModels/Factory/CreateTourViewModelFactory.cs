@@ -15,9 +15,13 @@ namespace TourPlanner.ViewModels.Factory
         public object CreateViewModel(DependencyObject sender)
         {
             CreateTourViewModel vm = new CreateTourViewModel();
-            if (true || Designer.IsDesignMode)
+            if (Designer.IsDesignMode)
             {
                 vm.ServiceLocator.RegisterService<IPredictionService>(new DesignerPredictionService());
+            }
+            else
+            {
+                vm.ServiceLocator.RegisterService<IPredictionService>(new MapQuestPredictionService());
             }
             return vm;
         }

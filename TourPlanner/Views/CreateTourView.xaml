@@ -18,21 +18,32 @@
             Orientation="Horizontal">
             <Label
                 MinWidth="50">Start:</Label>
-            <TextBox
-                MinWidth="200"
-                extensions:FocusExtension.IsFocused="{Binding IsStartLabelFocused}"
-                Text="{Binding StartLocation, Mode=TwoWay}"></TextBox>
+
+            <StackPanel>
+                <TextBox
+                    MinHeight="30"
+                    MinWidth="200"
+                    Margin="0"
+                    Padding="0"
+                    extensions:FocusExtension.IsFocused="{Binding IsStartLabelFocused}"
+                    Text="{Binding StartLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <ListView
+                    Height="{Binding Path=IsStartPredictionListVisible, Converter={StaticResource BoolToListHeightConverter}}"
+                    ItemsSource="{Binding Predictions}"
+                    SelectedItem="{Binding SelectedStartPrediction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderThickness="2">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                Text="{Binding DisplayName}"></TextBlock>
+                         </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            </StackPanel>
         </StackPanel>
-        <ListView
-            BorderThickness="2">
-            <!--<ListView.ItemTemplate>
-                <DataTemplate>
-                    <Label>Item</Label>
-                </DataTemplate>
-            </ListView.ItemTemplate>-->
-            <Label>Item</Label>
-            <Label>Item</Label>
-        </ListView>
+        
 
         <!--End Location-->
         <StackPanel
@@ -40,10 +51,30 @@
             Orientation="Horizontal">
             <Label
                 MinWidth="50">End:</Label>
-            <TextBox
-                MinWidth="200"
-                extensions:FocusExtension.IsFocused="{Binding IsEndLabelFocused}"
-                Text="{Binding EndLocation, Mode=TwoWay}"></TextBox>
+
+            <StackPanel>
+                <TextBox
+                    MinHeight="30"
+                    MinWidth="200"
+                    Margin="0"
+                    Padding="0"
+                    extensions:FocusExtension.IsFocused="{Binding IsEndLabelFocused}"
+                    Text="{Binding EndLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <ListView
+                    Height="{Binding Path=IsEndPredictionListVisible, Converter={StaticResource BoolToListHeightConverter}}"
+                    ItemsSource="{Binding Predictions}"
+                    SelectedItem="{Binding SelectedEndPrediction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    BorderThickness="2">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                Text="{Binding DisplayName}"></TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            </StackPanel>
         </StackPanel>
     </StackPanel>
     

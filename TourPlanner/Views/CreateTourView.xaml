@@ -28,6 +28,7 @@
                     extensions:FocusExtension.IsFocused="{Binding IsStartLabelFocused}"
                     Text="{Binding StartLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <ListView
+                    
                     Height="{Binding Path=IsStartPredictionListVisible, Converter={StaticResource BoolToListHeightConverter}}"
                     ItemsSource="{Binding Predictions}"
                     SelectedItem="{Binding SelectedStartPrediction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

@@ -200,16 +200,7 @@ namespace TourPlanner.ViewModels
             if (!string.IsNullOrWhiteSpace(StartLocation) && StartLocation.Length > 1 && IsStartLabelFocused)
             {
                 IsStartPredictionListVisible = true;
-                try
-                {
-                    Predictions = new ObservableCollection<Location>(await _predictionService.FetchPredictions(StartLocation));
-
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
+                Predictions = new ObservableCollection<Location>(await _predictionService.FetchPredictions(StartLocation));
             }
             else
             {

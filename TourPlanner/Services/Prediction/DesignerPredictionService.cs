@@ -20,12 +20,7 @@ namespace TourPlanner.Services.Prediction
                     {
                         DisplayName = $"Location {i}",
                         Name = $"Location {i}, 1100 Sample ZIP",
-                        Id = $"sample_{i}",
-                        GeoLocation = new GeoLocation()
-                        {
-                            Latitude = i * Math.PI,
-                            Longitude = -i * Math.PI
-                        }
+                        Id = $"sample_{i}"
                     });
                 }
             });

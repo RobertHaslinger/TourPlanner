@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -15,13 +17,21 @@ namespace TourPlanner.Services.Prediction
     {
         public async Task<List<Location>> FetchPredictions(string query)
         {
-            string uri =
-                $"search/v3/prediction?key={ConfigurationManager.AppSettings["consumer_key"]}&limit=7&collection=adminArea,poi,address,category,franchise,airport&q={query}" +
-                $"&location={ConfigurationManager.AppSettings["location_base"]}";
-            using var response = await HttpClient.GetAsync(uri);
-            //TODO add location repo for deserializing
-            Location[] locations = await response.Content.ReadFromJsonAsync<Location[]>();
-            return locations == null ? new List<Location>() : new List<Location>(locations);
+            try
+            {
+                string uri =
+                    $"search/v3/prediction?key={ConfigurationManager.AppSettings["consumer_key"]}&limit=7&collection=adminArea,poi,address,category,franchise,airport&q={query}" +
+                    $"&location={ConfigurationManager.AppSettings["location_base"]}";
+                using var response = await HttpClient.GetAsync(uri);
+                //TODO add location repo for deserializing
+                return JsonConvert.DeserializeObject<JsonLocationArray>(await response.Content.ReadAsStringAsync()).GetModel().ToList();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return new List<Location>();
+            }
+            
         }
     }
 }

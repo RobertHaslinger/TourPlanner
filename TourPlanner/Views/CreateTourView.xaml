@@ -27,8 +27,11 @@
                     Padding="0"
                     extensions:FocusExtension.IsFocused="{Binding IsStartLabelFocused}"
                     Text="{Binding StartLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+                <ProgressBar
+                    Height="{Binding Path=DataContext.IsStartPredictionListLoading, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=5, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                    Value="{Binding IsAsync=True, Path=DataContext.StartLoadingProgress, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ProgressBar>
                 <ListView
-                    
                     Height="{Binding Path=IsStartPredictionListVisible, Converter={StaticResource BoolToListHeightConverter}}"
                     ItemsSource="{Binding Predictions}"
                     SelectedItem="{Binding SelectedStartPrediction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -38,7 +41,7 @@
                         <DataTemplate>
                             <TextBlock
                                 Text="{Binding DisplayName}"></TextBlock>
-                         </DataTemplate>
+                        </DataTemplate>
                     </ListView.ItemTemplate>
 
                 </ListView>
@@ -61,6 +64,10 @@
                     Padding="0"
                     extensions:FocusExtension.IsFocused="{Binding IsEndLabelFocused}"
                     Text="{Binding EndLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+                <ProgressBar
+                    Height="{Binding Path=DataContext.IsEndPredictionListLoading, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=5, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                    Value="{Binding IsAsync=True, Path=DataContext.EndLoadingProgress, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ProgressBar>
                 <ListView
                     Height="{Binding Path=IsEndPredictionListVisible, Converter={StaticResource BoolToListHeightConverter}}"
                     ItemsSource="{Binding Predictions}"
@@ -75,6 +82,7 @@
                     </ListView.ItemTemplate>
 
                 </ListView>
+                
             </StackPanel>
         </StackPanel>
     </StackPanel>

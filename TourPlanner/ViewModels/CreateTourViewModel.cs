@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 using TourPlanner.Models.Geodata;
 using TourPlanner.Services.Prediction;
 
@@ -163,6 +168,37 @@ namespace TourPlanner.ViewModels
             }
         }
 
+        private bool _isStartPredictionListLoading;
+
+        public bool IsStartPredictionListLoading
+        {
+            get { return _isStartPredictionListLoading; }
+            set { _isStartPredictionListLoading = value; OnPropertyChanged();}
+        }
+
+        private bool _isEndPredictionListLoading;
+
+        public bool IsEndPredictionListLoading
+        {
+            get { return _isEndPredictionListLoading; }
+            set { _isEndPredictionListLoading = value; OnPropertyChanged(); }
+        }
+
+        private int _startLoadingProgress;
+
+        public int StartLoadingProgress
+        {
+            get { return _startLoadingProgress; }
+            set { _startLoadingProgress = value; OnPropertyChanged(); }
+        }
+
+        private int _endLoadingProgress;
+
+        public int EndLoadingProgress
+        {
+            get { return _endLoadingProgress; }
+            set { _endLoadingProgress = value; OnPropertyChanged(); }
+        }
 
         #endregion
 
@@ -186,12 +222,26 @@ namespace TourPlanner.ViewModels
             if (!string.IsNullOrWhiteSpace(EndLocation) && EndLocation.Length > 1 && IsEndLabelFocused)
             {
                 IsEndPredictionListVisible = true;
+                IsEndPredictionListLoading = true;
+                CancellationTokenSource source= new CancellationTokenSource();
+                EndLoadingProgress = 0;
+                RepeatActionAfter(() =>
+                {
+                    EndLoadingProgress += 3;
+                }, TimeSpan.FromMilliseconds(10), source.Token);
                 Predictions = new ObservableCollection<Location>(await _predictionService.FetchPredictions(EndLocation));
+                source.Cancel();
+                EndLoadingProgress = 100;
+                //simulate 100% on progress bar
+                await Task.Delay(100);
+                IsEndPredictionListLoading = false;
             }
             else
             {
                 IsEndPredictionListVisible = false;
-                Predictions.Clear();
+                ClearPredictions();
+                EndLoadingProgress = 0;
+                IsEndPredictionListLoading = false;
             }
         }
 
@@ -200,12 +250,43 @@ namespace TourPlanner.ViewModels
             if (!string.IsNullOrWhiteSpace(StartLocation) && StartLocation.Length > 1 && IsStartLabelFocused)
             {
                 IsStartPredictionListVisible = true;
+                IsStartPredictionListLoading = true;
+                CancellationTokenSource source = new CancellationTokenSource();
+                StartLoadingProgress = 0;
+                RepeatActionAfter(() =>
+                {
+                    StartLoadingProgress += 3;
+                }, TimeSpan.FromMilliseconds(10), source.Token);
                 Predictions = new ObservableCollection<Location>(await _predictionService.FetchPredictions(StartLocation));
+                source.Cancel();
+                StartLoadingProgress = 100;
+                //simulate 100% on progress bar
+                await Task.Delay(100);
+                IsStartPredictionListLoading = false;
             }
             else
             {
                 IsStartPredictionListVisible = false;
+                ClearPredictions();
+                StartLoadingProgress = 0;
+                IsStartPredictionListLoading = false;
+            }
+        }
+
+        private delegate void NoParamDelegate();
+
+        /// <summary>
+        /// This Method clears the predictions collection on the UI Thread
+        /// </summary>
+        private void ClearPredictions()
+        {
+            if (Application.Current.Dispatcher.CheckAccess())
+            {
                 Predictions.Clear();
+            }
+            else
+            {
+                Application.Current.Dispatcher.Invoke(new NoParamDelegate(ClearPredictions));
             }
         }
 

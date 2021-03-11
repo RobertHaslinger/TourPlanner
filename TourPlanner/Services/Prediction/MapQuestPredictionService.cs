@@ -28,7 +28,6 @@ namespace TourPlanner.Services.Prediction
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
                 return new List<Location>();
             }
             

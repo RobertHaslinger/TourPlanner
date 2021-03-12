@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TourPlanner.Helper;
 using TourPlanner.Helper.Factory;
+using TourPlanner.Services.Map;
 using TourPlanner.Services.Prediction;
 
 namespace TourPlanner.ViewModels.Factory
@@ -17,11 +18,13 @@ namespace TourPlanner.ViewModels.Factory
             CreateTourViewModel vm = new CreateTourViewModel();
             if (Designer.IsDesignMode)
             {
+                vm.ServiceLocator.RegisterService<IMapService>(new DesignerMapService());
                 vm.ServiceLocator.RegisterService<IPredictionService>(new DesignerPredictionService());
             }
             else
             {
                 vm.ServiceLocator.RegisterService<IPredictionService>(new MapQuestPredictionService());
+                vm.ServiceLocator.RegisterService<IMapService>(new MapQuestMapService());
             }
             return vm;
         }

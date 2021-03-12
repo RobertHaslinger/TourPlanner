@@ -10,7 +10,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
+using TourPlanner.Helper;
 using TourPlanner.Models.Geodata;
 using TourPlanner.Services.Prediction;
 
@@ -28,8 +30,26 @@ namespace TourPlanner.ViewModels
         {
             Predictions = new ObservableCollection<Location>();
         }
-        
+
         #region Properties
+
+        private string _tourName;
+
+        public string TourName
+        {
+            get { return _tourName; }
+            set { _tourName = value; OnPropertyChanged();}
+        }
+
+        private string _tourDescription;
+
+        public string TourDescription
+        {
+            get { return _tourDescription; }
+            set { _tourDescription = value; OnPropertyChanged();}
+        }
+
+
 
         private string _start;
 
@@ -218,6 +238,13 @@ namespace TourPlanner.ViewModels
 
         #endregion
 
+        #region Commands
+
+        public ICommand ClearAllCommand => new RelayCommand(ClearAllInputs);
+        public ICommand PreviewRouteCommand => new RelayCommand(PreviewRoute);
+
+        #endregion
+
         #region Methods
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -308,6 +335,22 @@ namespace TourPlanner.ViewModels
             {
                 Application.Current.Dispatcher.Invoke(new NoParamDelegate(ClearPredictions));
             }
+        }
+
+        private void PreviewRoute(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ClearAllInputs(object obj)
+        {
+            TourName = "";
+            TourDescription = "";
+            StartLocation = "";
+            RealStartLocation = null;
+            EndLocation = "";
+            RealEndLocation = null;
+            ClearPredictions();
         }
 
         #endregion

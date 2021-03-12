@@ -12,6 +12,41 @@
         factory:ViewModelLoader.FactoryType="{x:Type factory1:CreateTourViewModelFactory}">
     <StackPanel
         Margin="0 5">
+
+        <Label
+            FontSize="20">Basic information</Label>
+
+        <!--Tour Name-->
+        <StackPanel
+            Margin="5"
+            Orientation="Horizontal">
+            <Label
+                MinWidth="100">Tour name:</Label>
+            <TextBox
+                MinHeight="0"
+                MinWidth="200"
+                Margin="0"
+                Padding="0"
+                Text="{Binding TourName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </StackPanel>
+
+        <!--Tour Name-->
+        <StackPanel
+            Margin="5"
+            Orientation="Horizontal">
+            <Label
+                MinWidth="100">Tour description:</Label>
+            <TextBox
+                MinHeight="30"
+                MinWidth="200"
+                Margin="0"
+                Padding="0"
+                Text="{Binding TourDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </StackPanel>
+
+        <Label
+            FontSize="20">Route information</Label>
+
         <!--Starting Location-->
         <StackPanel
             Margin="5"
@@ -104,6 +139,18 @@
                     Foreground="DarkRed"
                     FontWeight="DemiBold">You need to take a location from the list!</Label>
             </StackPanel>
+        </StackPanel>
+
+        <StackPanel
+            Margin="5 20"
+            Orientation="Horizontal">
+            <Button
+                Background="#EAED7F"
+                Command="{Binding PreviewRouteCommand}">Preview</Button>
+            <Button
+                Margin="5 0"
+                Background="#EDC12F"
+                Command="{Binding ClearAllCommand}">Clear All</Button>
         </StackPanel>
     </StackPanel>
     

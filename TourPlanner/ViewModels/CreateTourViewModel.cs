@@ -200,6 +200,22 @@ namespace TourPlanner.ViewModels
             set { _endLoadingProgress = value; OnPropertyChanged(); }
         }
 
+        private bool _isStartErrorDisplayed;
+
+        public bool IsStartErrorDisplayed
+        {
+            get { return _isStartErrorDisplayed; }
+            set { _isStartErrorDisplayed = value; OnPropertyChanged();}
+        }
+
+        private bool _isEndErrorDisplayed;
+
+        public bool IsEndErrorDisplayed
+        {
+            get { return _isEndErrorDisplayed; }
+            set { _isEndErrorDisplayed = value; OnPropertyChanged();}
+        }
+
         #endregion
 
         #region Methods
@@ -243,6 +259,8 @@ namespace TourPlanner.ViewModels
                 EndLoadingProgress = 0;
                 IsEndPredictionListLoading = false;
             }
+
+            IsEndErrorDisplayed = !string.IsNullOrWhiteSpace(EndLocation) && EndLocation.Length > 1 && RealEndLocation == null;
         }
 
         private async Task CheckStartLocationPredictions()
@@ -271,6 +289,8 @@ namespace TourPlanner.ViewModels
                 StartLoadingProgress = 0;
                 IsStartPredictionListLoading = false;
             }
+
+            IsStartErrorDisplayed = !string.IsNullOrWhiteSpace(StartLocation) && StartLocation.Length > 1 && RealStartLocation == null;
         }
 
         private delegate void NoParamDelegate();

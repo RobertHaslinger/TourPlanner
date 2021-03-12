@@ -46,6 +46,16 @@
 
                 </ListView>
             </StackPanel>
+
+            <!--add exclamation mark image-->
+            <StackPanel
+                Height="{Binding Path=IsStartErrorDisplayed, Converter={StaticResource BoolToListHeightConverter}}"
+                VerticalAlignment="Center"
+                Margin="5 0">
+                <Label
+                    Foreground="DarkRed"
+                    FontWeight="DemiBold">You need to take a location from the list!</Label>
+            </StackPanel>
         </StackPanel>
         
 
@@ -82,7 +92,17 @@
                     </ListView.ItemTemplate>
 
                 </ListView>
-                
+
+            </StackPanel>
+
+            <!--add exclamation mark image-->
+            <StackPanel
+                Height="{Binding Path=IsEndErrorDisplayed, Converter={StaticResource BoolToListHeightConverter}}"
+                VerticalAlignment="Center"
+                Margin="5 0">
+                <Label
+                    Foreground="DarkRed"
+                    FontWeight="DemiBold">You need to take a location from the list!</Label>
             </StackPanel>
         </StackPanel>
     </StackPanel>

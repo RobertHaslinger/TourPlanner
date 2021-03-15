@@ -156,8 +156,8 @@
         <Image
             HorizontalAlignment="Left"
             Margin="5 0"
-            Width="200"
-            Height="100"
+            Width="600"
+            Height="400"
             Source="{Binding PreviewMap}">
         </Image>
     </StackPanel>

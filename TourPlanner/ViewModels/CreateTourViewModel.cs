@@ -17,6 +17,7 @@ using TourPlanner.Helper;
 using TourPlanner.Models.Geodata;
 using TourPlanner.Services.Map;
 using TourPlanner.Services.Prediction;
+using TourPlanner.Views;
 
 namespace TourPlanner.ViewModels
 {
@@ -369,6 +370,7 @@ namespace TourPlanner.ViewModels
             EndLocation = "";
             RealEndLocation = null;
             ClearPredictions();
+            PreviewMap = null;
         }
 
         #endregion

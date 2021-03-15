@@ -11,10 +11,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using TourPlanner.Helper;
 using TourPlanner.Models.Geodata;
+using TourPlanner.Services.Map;
 using TourPlanner.Services.Prediction;
+using TourPlanner.Views;
 
 namespace TourPlanner.ViewModels
 {
@@ -23,6 +26,7 @@ namespace TourPlanner.ViewModels
         #region Fields
 
         private IPredictionService _predictionService => GetService<IPredictionService>();
+        private IMapService _mapService => GetService<IMapService>();
 
         #endregion
 
@@ -236,12 +240,20 @@ namespace TourPlanner.ViewModels
             set { _isEndErrorDisplayed = value; OnPropertyChanged();}
         }
 
+        private BitmapImage _previewMap;
+
+        public BitmapImage PreviewMap
+        {
+            get => _previewMap;
+            set { _previewMap = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         #region Commands
 
         public ICommand ClearAllCommand => new RelayCommand(ClearAllInputs);
-        public ICommand PreviewRouteCommand => new RelayCommand(PreviewRoute);
+        public ICommand PreviewRouteCommand => new RelayCommand(async sender => await PreviewRoute(sender));
 
         #endregion
 
@@ -337,9 +349,16 @@ namespace TourPlanner.ViewModels
             }
         }
 
-        private void PreviewRoute(object obj)
+        private async Task PreviewRoute(object obj)
         {
-            throw new NotImplementedException();
+            if (RealStartLocation == null || RealEndLocation == null)
+            {
+                MessageBox.Show("You need to fill in both locations!", "Form error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+
+            PreviewMap = await _mapService.GetMapWithLocations(RealStartLocation, RealEndLocation);
         }
 
         private void ClearAllInputs(object obj)
@@ -351,6 +370,7 @@ namespace TourPlanner.ViewModels
             EndLocation = "";
             RealEndLocation = null;
             ClearPredictions();
+            PreviewMap = null;
         }
 
         #endregion

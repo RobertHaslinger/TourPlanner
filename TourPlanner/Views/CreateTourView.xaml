@@ -152,6 +152,14 @@
                 Background="#EDC12F"
                 Command="{Binding ClearAllCommand}">Clear All</Button>
         </StackPanel>
+
+        <Image
+            HorizontalAlignment="Left"
+            Margin="5 0"
+            Width="600"
+            Height="400"
+            Source="{Binding PreviewMap}">
+        </Image>
     </StackPanel>
     
 </Window>

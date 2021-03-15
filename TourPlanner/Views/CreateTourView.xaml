@@ -8,54 +8,57 @@
         xmlns:factory1="clr-namespace:TourPlanner.ViewModels.Factory"
         xmlns:extensions="clr-namespace:TourPlanner.Extensions"
         mc:Ignorable="d"
-        Title="Create a new Tour" Height="450" Width="800"
+        Title="Create a new Tour" Height="720" Width="1080"
         factory:ViewModelLoader.FactoryType="{x:Type factory1:CreateTourViewModelFactory}">
-    <StackPanel
+    <ScrollViewer
+        HorizontalScrollBarVisibility="Auto"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel
         Margin="0 5">
 
-        <Label
+            <Label
             FontSize="20">Basic information</Label>
 
-        <!--Tour Name-->
-        <StackPanel
+            <!--Tour Name-->
+            <StackPanel
             Margin="5"
             Orientation="Horizontal">
-            <Label
+                <Label
                 MinWidth="100">Tour name:</Label>
-            <TextBox
+                <TextBox
                 MinHeight="0"
                 MinWidth="200"
                 Margin="0"
                 Padding="0"
                 Text="{Binding TourName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        </StackPanel>
+            </StackPanel>
 
-        <!--Tour Name-->
-        <StackPanel
+            <!--Tour Name-->
+            <StackPanel
             Margin="5"
             Orientation="Horizontal">
-            <Label
+                <Label
                 MinWidth="100">Tour description:</Label>
-            <TextBox
+                <TextBox
                 MinHeight="30"
                 MinWidth="200"
                 Margin="0"
                 Padding="0"
                 Text="{Binding TourDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        </StackPanel>
+            </StackPanel>
 
-        <Label
+            <Label
             FontSize="20">Route information</Label>
 
-        <!--Starting Location-->
-        <StackPanel
+            <!--Starting Location-->
+            <StackPanel
             Margin="5"
             Orientation="Horizontal">
-            <Label
+                <Label
                 MinWidth="50">Start:</Label>
 
-            <StackPanel>
-                <TextBox
+                <StackPanel>
+                    <TextBox
                     MinHeight="30"
                     MinWidth="200"
                     Margin="0"
@@ -63,46 +66,46 @@
                     extensions:FocusExtension.IsFocused="{Binding IsStartLabelFocused}"
                     Text="{Binding StartLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-                <ProgressBar
+                    <ProgressBar
                     Height="{Binding Path=DataContext.IsStartPredictionListLoading, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=5, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                     Value="{Binding IsAsync=True, Path=DataContext.StartLoadingProgress, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ProgressBar>
-                <ListView
+                    <ListView
                     Height="{Binding Path=IsStartPredictionListVisible, Converter={StaticResource BoolToListHeightConverter}}"
                     ItemsSource="{Binding Predictions}"
                     SelectedItem="{Binding SelectedStartPrediction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     BorderThickness="2">
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
                                 Text="{Binding DisplayName}"></TextBlock>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
 
-                </ListView>
-            </StackPanel>
+                    </ListView>
+                </StackPanel>
 
-            <!--add exclamation mark image-->
-            <StackPanel
+                <!--add exclamation mark image-->
+                <StackPanel
                 Height="{Binding Path=IsStartErrorDisplayed, Converter={StaticResource BoolToListHeightConverter}}"
                 VerticalAlignment="Center"
                 Margin="5 0">
-                <Label
+                    <Label
                     Foreground="DarkRed"
                     FontWeight="DemiBold">You need to take a location from the list!</Label>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-        
 
-        <!--End Location-->
-        <StackPanel
+
+            <!--End Location-->
+            <StackPanel
             Margin="5"
             Orientation="Horizontal">
-            <Label
+                <Label
                 MinWidth="50">End:</Label>
 
-            <StackPanel>
-                <TextBox
+                <StackPanel>
+                    <TextBox
                     MinHeight="30"
                     MinWidth="200"
                     Margin="0"
@@ -110,56 +113,114 @@
                     extensions:FocusExtension.IsFocused="{Binding IsEndLabelFocused}"
                     Text="{Binding EndLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-                <ProgressBar
+                    <ProgressBar
                     Height="{Binding Path=DataContext.IsEndPredictionListLoading, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=5, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                     Value="{Binding IsAsync=True, Path=DataContext.EndLoadingProgress, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ProgressBar>
-                <ListView
+                    <ListView
                     Height="{Binding Path=IsEndPredictionListVisible, Converter={StaticResource BoolToListHeightConverter}}"
                     ItemsSource="{Binding Predictions}"
                     SelectedItem="{Binding SelectedEndPrediction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     BorderThickness="2">
 
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
                                 Text="{Binding DisplayName}"></TextBlock>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
 
-                </ListView>
+                    </ListView>
 
-            </StackPanel>
+                </StackPanel>
 
-            <!--add exclamation mark image-->
-            <StackPanel
+                <!--add exclamation mark image-->
+                <StackPanel
                 Height="{Binding Path=IsEndErrorDisplayed, Converter={StaticResource BoolToListHeightConverter}}"
                 VerticalAlignment="Center"
                 Margin="5 0">
-                <Label
+                    <Label
                     Foreground="DarkRed"
                     FontWeight="DemiBold">You need to take a location from the list!</Label>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
 
-        <StackPanel
+            <StackPanel
             Margin="5 20"
             Orientation="Horizontal">
-            <Button
+                <Button
                 Background="#EAED7F"
                 Command="{Binding PreviewRouteCommand}">Preview</Button>
-            <Button
+                <Button
                 Margin="5 0"
                 Background="#EDC12F"
                 Command="{Binding ClearAllCommand}">Clear All</Button>
-        </StackPanel>
+            </StackPanel>
 
-        <Image
-            HorizontalAlignment="Left"
-            Margin="5 0"
-            Width="600"
-            Height="400"
-            Source="{Binding PreviewMap}">
-        </Image>
-    </StackPanel>
-    
+            <StackPanel
+                Orientation="Horizontal"
+                Margin="10">
+
+                <Image
+                    Stretch="None"
+                    Margin="5 0"
+                    Source="{Binding PreviewMap}">
+                </Image>
+
+                <StackPanel
+                    Margin="5 4">
+
+                    <Label
+                        Height="{Binding Path=RouteHasAnySpecialities, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=50, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        FontWeight="DemiBold"
+                        FontSize="16"
+                        Margin="0 0 0 10">Specialties</Label>
+
+                    <Label
+                        Height="{Binding Path=PreviewRoute.HasTollRoad, FallbackValue=0, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=30, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Toll road</Label>
+                    <Label
+                        Height="{Binding Path=PreviewRoute.HasHighway, FallbackValue=0, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=30, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Highway</Label>
+                    <Label               
+                        Height="{Binding Path=PreviewRoute.HasFerry, FallbackValue=0, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=30, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Ferry</Label>
+                    <Label              
+                        Height="{Binding Path=PreviewRoute.HasSeasonalClosure, FallbackValue=0, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=30, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Seasonal Closure</Label>
+                    <Label               
+                        Height="{Binding Path=PreviewRoute.HasUnpaved, FallbackValue=0, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=30, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Unpaved</Label>
+                    <Label              
+                        Height="{Binding Path=PreviewRoute.HasCountryCross, FallbackValue=0, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=30, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Country Cross</Label>
+
+                    <StackPanel
+                        Height="{Binding Path=IsRouteInfoAvailable, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=30}"
+                        Orientation="Horizontal"
+                        Margin="0 0 5 0">
+
+                        <Label>Distance:</Label>
+                        <TextBlock
+                            Text="{Binding PreviewRoute.Distance}"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel
+                        Height="{Binding Path=IsRouteInfoAvailable, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=30}"
+                        Orientation="Horizontal"
+                        Margin="0 0 5 0">
+
+                        <Label>Estimated fuel usage:</Label>
+                        <TextBlock
+                            Text="{Binding PreviewRoute.FuelUsed}"></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel
+                        Height="{Binding Path=IsRouteInfoAvailable, Converter={StaticResource BoolToListHeightConverter}, ConverterParameter=30}"
+                        Orientation="Horizontal"
+                        Margin="0 0 5 0">
+
+                        <Label>Estimated tour duration:</Label>
+                        <TextBlock
+                            Text="{Binding PreviewRoute.EstimatedFormattedRouteTime}"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            
+        </StackPanel>
+    </ScrollViewer>
 </Window>

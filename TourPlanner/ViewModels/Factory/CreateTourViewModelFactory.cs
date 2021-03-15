@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TourPlanner.Helper;
 using TourPlanner.Helper.Factory;
+using TourPlanner.Services.Direction;
 using TourPlanner.Services.Map;
 using TourPlanner.Services.Prediction;
 
@@ -23,6 +24,7 @@ namespace TourPlanner.ViewModels.Factory
             }
             else
             {
+                vm.ServiceLocator.RegisterService<IDirectionService>(new MapQuestDirectionService());
                 vm.ServiceLocator.RegisterService<IPredictionService>(new MapQuestPredictionService());
                 vm.ServiceLocator.RegisterService<IMapService>(new MapQuestMapService());
             }

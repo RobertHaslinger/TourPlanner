@@ -18,6 +18,10 @@ namespace TourPlanner.Models.Route
         public string EstimatedFormattedRouteTime { get; set; }
         public double Distance { get; set; }
         public double FuelUsed { get; set; }
-        
+
+        public bool HasSpecialities()
+        {
+            return HasTollRoad || HasFerry || HasSeasonalClosure || HasHighway || HasUnpaved || HasCountryCross;
+        }
     }
 }

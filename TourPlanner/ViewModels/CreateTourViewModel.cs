@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using TourPlanner.Helper;
 using TourPlanner.Models.Geodata;
+using TourPlanner.Models.Route;
+using TourPlanner.Services.Direction;
 using TourPlanner.Services.Map;
 using TourPlanner.Services.Prediction;
 using TourPlanner.Views;
@@ -27,6 +29,7 @@ namespace TourPlanner.ViewModels
 
         private IPredictionService _predictionService => GetService<IPredictionService>();
         private IMapService _mapService => GetService<IMapService>();
+        private IDirectionService _directionService => GetService<IDirectionService>();
 
         #endregion
 
@@ -248,12 +251,36 @@ namespace TourPlanner.ViewModels
             set { _previewMap = value; OnPropertyChanged(); }
         }
 
+        private Route _previewRoute;
+
+        public Route PreviewRoute
+        {
+            get => _previewRoute;
+            set { _previewRoute = value; OnPropertyChanged();}
+        }
+
+        private bool _routeHasAnySpecialities;
+
+        public bool RouteHasAnySpecialities
+        {
+            get { return _routeHasAnySpecialities; }
+            set { _routeHasAnySpecialities = value; OnPropertyChanged();}
+        }
+
+        private bool _isRouteInfoAvailable;
+
+        public bool IsRouteInfoAvailable
+        {
+            get { return _isRouteInfoAvailable; }
+            set { _isRouteInfoAvailable = value; OnPropertyChanged();}
+        }
+
         #endregion
 
         #region Commands
 
         public ICommand ClearAllCommand => new RelayCommand(ClearAllInputs);
-        public ICommand PreviewRouteCommand => new RelayCommand(async sender => await PreviewRoute(sender));
+        public ICommand PreviewRouteCommand => new RelayCommand(async sender => await StartPreviewRoute(sender));
 
         #endregion
 
@@ -349,7 +376,7 @@ namespace TourPlanner.ViewModels
             }
         }
 
-        private async Task PreviewRoute(object obj)
+        private async Task StartPreviewRoute(object obj)
         {
             if (RealStartLocation == null || RealEndLocation == null)
             {
@@ -359,6 +386,9 @@ namespace TourPlanner.ViewModels
             }
 
             PreviewMap = await _mapService.GetMapWithLocations(RealStartLocation, RealEndLocation);
+            PreviewRoute = await _directionService.GetSimpleRoute(RealStartLocation, RealEndLocation);
+            RouteHasAnySpecialities = PreviewRoute != null && PreviewRoute.HasSpecialities();
+            IsRouteInfoAvailable= PreviewRoute != null;
         }
 
         private void ClearAllInputs(object obj)
@@ -371,6 +401,9 @@ namespace TourPlanner.ViewModels
             RealEndLocation = null;
             ClearPredictions();
             PreviewMap = null;
+            PreviewRoute = null;
+            RouteHasAnySpecialities = false;
+            IsRouteInfoAvailable = false;
         }
 
         #endregion

@@ -23,7 +23,6 @@ namespace TourPlanner.Services.Prediction
                     $"search/v3/prediction?key={ConfigurationManager.AppSettings["consumer_key"]}&limit=7&collection=adminArea,poi,address,category,franchise,airport&q={query}" +
                     $"&location={ConfigurationManager.AppSettings["location_base"]}";
                 using var response = await HttpClient.GetAsync(uri);
-                //TODO add location repo for deserializing
                 return JsonConvert.DeserializeObject<JsonLocationArray>(await response.Content.ReadAsStringAsync()).GetModel().ToList();
             }
             catch (Exception e)

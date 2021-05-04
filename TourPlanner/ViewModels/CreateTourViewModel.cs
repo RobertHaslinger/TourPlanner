@@ -256,7 +256,12 @@ namespace TourPlanner.ViewModels
         public Route PreviewRoute
         {
             get => _previewRoute;
-            set { _previewRoute = value; OnPropertyChanged();}
+            set
+            {
+                _previewRoute = value;
+                OnPropertyChanged();
+                IsSaveVisible = value != null;
+            }
         }
 
         private bool _routeHasAnySpecialities;
@@ -274,6 +279,15 @@ namespace TourPlanner.ViewModels
             get { return _isRouteInfoAvailable; }
             set { _isRouteInfoAvailable = value; OnPropertyChanged();}
         }
+
+        private bool _isSaveVisible;
+
+        public bool IsSaveVisible
+        {
+            get { return _isSaveVisible; }
+            set { _isSaveVisible = value; OnPropertyChanged();}
+        }
+
 
         #endregion
 

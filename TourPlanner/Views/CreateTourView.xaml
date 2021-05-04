@@ -154,6 +154,11 @@
                 Margin="5 0"
                 Background="#EDC12F"
                 Command="{Binding ClearAllCommand}">Clear All</Button>
+
+                <Button
+                    Margin="5 0"
+                    Command="{Binding SaveTourCommand}"
+                    Height="{Binding Path=IsSaveVisible, Converter={StaticResource BoolToListHeightConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Save</Button>
             </StackPanel>
 
             <StackPanel

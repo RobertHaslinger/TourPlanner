@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TourPlanner"
              xmlns:converter="clr-namespace:TourPlanner.Converter"
-             StartupUri="Views/CreateTourView.xaml">
+             StartupUri="Views/BaseWindow.xaml">
     <Application.Resources>
          <converter:BoolToListHeightConverter x:Key="BoolToListHeightConverter"/>
     </Application.Resources>

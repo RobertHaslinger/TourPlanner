@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:TourPlanner.Views"
       xmlns:factory="clr-namespace:TourPlanner.Helper.Factory"
       xmlns:vmFactory="clr-namespace:TourPlanner.ViewModels.Factory"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HomeView"
@@ -13,10 +14,38 @@
       factory:ViewModelLoader.FactoryType="{x:Type vmFactory:HomeViewModelFactory}">
 
     <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="90*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"></ColumnDefinition>
+            <ColumnDefinition Width="60*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
         <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
             Text="{Binding GreetMessage}"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             FontWeight="Bold"></TextBlock>
+
+        <local:TourListView
+            Grid.Row="1"
+            Grid.Column="0"
+            SelectedTourChangedCommand="{Binding Path=DataContext.SelectedTourChangedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}">
+            <b:Interaction.Triggers>
+                <b:EventTrigger
+                        EventName="TourSelected">
+                    <b:InvokeCommandAction
+                        EventArgsParameterPath="SelectedTour"
+                        Command="{Binding Path=SelectedTourChangedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TourListView}}}"></b:InvokeCommandAction>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+        </local:TourListView>
     </Grid>
 </Page>

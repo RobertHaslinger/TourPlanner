@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Npgsql;
 using TourPlanner.Helper;
+using TourPlanner.Services.LocalFiles;
 
 namespace TourPlanner.Models
 {
     public class Tour : NotifyPropertyChangedBase
     {
+        private string _imagePath;
         #region Properties
 
         private bool _hasTollRoad;
@@ -144,9 +146,9 @@ namespace TourPlanner.Models
             Id = (int)reader["Id"];
             Name = reader["Name"].ToString();
             Description = reader["Description"].ToString();
-            Image = HelperBase.LoadImage((byte[]) reader["Image"]);
             StartLocation = reader["StartLocation"].ToString();
             EndLocation = reader["EndLocation"].ToString();
+            _imagePath = reader["ImagePath"].ToString();
             HasTollRoad = (bool)reader["HasTollRoad"];
             HasFerry = (bool)reader["HasFerry"];
             HasSeasonalClosure = (bool)reader["HasSeasonalClosure"];
@@ -161,6 +163,11 @@ namespace TourPlanner.Models
         public bool HasSpecialties()
         {
             return HasTollRoad || HasFerry || HasSeasonalClosure || HasHighway || HasUnpaved || HasCountryCross;
+        }
+
+        public void LoadImage(IFileService fileService)
+        {
+            Image = HelperBase.LoadImage(fileService.GetImageBytes(_imagePath));
         }
     }
 }

@@ -87,7 +87,28 @@ namespace TourPlanner.Services.Database
 
         public List<Tour> GetTours()
         {
-            throw new NotImplementedException();
+            List<Tour> tours= new List<Tour>();
+            try
+            {
+                using NpgsqlConnection con = new NpgsqlConnection(_connectionString);
+                con.Open();
+                string statement = "SELECT * FROM \"dev\".\"Tours\"";
+
+                using NpgsqlCommand cmd= new NpgsqlCommand(statement, con);
+                using NpgsqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    tours.Add(new Tour(reader));
+                }
+                reader.Close();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return tours;
         }
     }
 }

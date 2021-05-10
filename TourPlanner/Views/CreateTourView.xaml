@@ -158,6 +158,7 @@
                 <Button
                     Margin="5 0"
                     Command="{Binding SaveTourCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                     Height="{Binding Path=IsSaveVisible, Converter={StaticResource BoolToListHeightConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">Save</Button>
             </StackPanel>
 

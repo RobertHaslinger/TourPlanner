@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TourPlanner.Models.Geodata;
-using TourPlanner.Models.Route;
+using TourPlanner.DataAccessLayer.Models.Geodata;
+using TourPlanner.DataAccessLayer.Models.Route;
 
 namespace TourPlanner.Services.Direction
 {

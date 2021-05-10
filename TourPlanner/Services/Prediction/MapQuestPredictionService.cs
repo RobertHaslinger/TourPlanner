@@ -9,7 +9,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Animation;
-using TourPlanner.Models.Geodata;
+using TourPlanner.DataAccessLayer.Models.Geodata;
 
 namespace TourPlanner.Services.Prediction
 {

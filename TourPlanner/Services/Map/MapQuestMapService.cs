@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Newtonsoft.Json;
+using TourPlanner.DataAccessLayer.Models.Geodata;
 using TourPlanner.Helper;
-using TourPlanner.Models.Geodata;
 
 namespace TourPlanner.Services.Map
 {

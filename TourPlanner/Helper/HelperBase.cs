@@ -30,5 +30,26 @@ namespace TourPlanner.Helper
             image.Freeze();
             return image;
         }
+
+        /// <summary>
+        /// Deprecated
+        /// </summary>
+        /// <param name="img"></param>
+        /// <returns></returns>
+        public static byte[] ImageToByteArray(BitmapImage img)
+        {
+            using (var stream = new MemoryStream())
+            {
+                PngBitmapEncoder encoder= new PngBitmapEncoder();
+                encoder.Frames.Add((BitmapFrame.Create(img)));
+                encoder.Save(stream);
+                return stream.ToArray();
+            }
+        }
+
+        public static string GetExecutiveFullPath(string relativePath)
+        {
+            return Path.GetFullPath(relativePath, Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location));
+        }
     }
 }

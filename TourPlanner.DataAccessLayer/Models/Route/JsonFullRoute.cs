@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace TourPlanner.Models.Route
+namespace TourPlanner.DataAccessLayer.Models.Route
 {
     public class JsonFullRoute : IJsonModel<Route>
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace TourPlanner.Models.Geodata
+namespace TourPlanner.DataAccessLayer.Models.Geodata
 {
     public class Location
     {

@@ -10,6 +10,9 @@
 *.userosscache
 *.sln.docstates
 
+#postgres data
+.var\
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -338,3 +341,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/TourPlanner/var/pgdata

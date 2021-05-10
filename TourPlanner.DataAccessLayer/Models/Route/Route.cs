@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourPlanner.Models.Route
+namespace TourPlanner.DataAccessLayer.Models.Route
 {
     public class Route
     {
@@ -19,7 +19,7 @@ namespace TourPlanner.Models.Route
         public double Distance { get; set; }
         public double FuelUsed { get; set; }
 
-        public bool HasSpecialities()
+        public bool HasSpecialties()
         {
             return HasTollRoad || HasFerry || HasSeasonalClosure || HasHighway || HasUnpaved || HasCountryCross;
         }

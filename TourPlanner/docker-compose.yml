@@ -1,0 +1,19 @@
+﻿version: "3.3"
+services:
+
+  db:
+    build:
+      context: ./Docker
+      dockerfile: db.Dockerfile
+    environment:
+      - POSTGRES_USER=tourplanner
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=TourPlanner
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

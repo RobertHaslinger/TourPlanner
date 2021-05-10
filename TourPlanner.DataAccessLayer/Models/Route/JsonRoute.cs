@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace TourPlanner.Models.Route
+namespace TourPlanner.DataAccessLayer.Models.Route
 {
     [JsonObject("route")]
     public class JsonRoute : IJsonModel<Route>

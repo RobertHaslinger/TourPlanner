@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace TourPlanner.Models.Geodata
+namespace TourPlanner.DataAccessLayer.Models.Geodata
 {
     public class JsonLocation : IJsonModel<Location>
     {

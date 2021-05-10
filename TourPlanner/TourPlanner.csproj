@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="var\**" />
+    <EmbeddedResource Remove="var\**" />
+    <None Remove="var\**" />
+    <Page Remove="var\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\home.png" />
     <None Remove="Images\sample_map_600x400.png" />
     <None Remove="Images\settings.png" />
@@ -23,7 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Npgsql" Version="3.1.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TourPlanner.DataAccessLayer\TourPlanner.DataAccessLayer.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,10 +13,13 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using TourPlanner.DataAccessLayer.Models.Geodata;
+using TourPlanner.DataAccessLayer.Models.Route;
 using TourPlanner.Helper;
-using TourPlanner.Models.Geodata;
-using TourPlanner.Models.Route;
+using TourPlanner.Models;
+using TourPlanner.Services.Database;
 using TourPlanner.Services.Direction;
+using TourPlanner.Services.LocalFiles;
 using TourPlanner.Services.Map;
 using TourPlanner.Services.Prediction;
 using TourPlanner.Views;
@@ -30,6 +33,8 @@ namespace TourPlanner.ViewModels
         private IPredictionService _predictionService => GetService<IPredictionService>();
         private IMapService _mapService => GetService<IMapService>();
         private IDirectionService _directionService => GetService<IDirectionService>();
+        private IDatabaseService _databaseService => GetService<IDatabaseService>();
+        private IFileService _fileService => GetService<IFileService>();
 
         #endregion
 
@@ -295,6 +300,7 @@ namespace TourPlanner.ViewModels
 
         public ICommand ClearAllCommand => new RelayCommand(ClearAllInputs);
         public ICommand PreviewRouteCommand => new RelayCommand(async sender => await StartPreviewRoute(sender));
+        public ICommand SaveTourCommand => new RelayCommand(SaveTourInDatabase);
 
         #endregion
 
@@ -401,7 +407,7 @@ namespace TourPlanner.ViewModels
 
             PreviewMap = await _mapService.GetMapWithLocations(RealStartLocation, RealEndLocation);
             PreviewRoute = await _directionService.GetSimpleRoute(RealStartLocation, RealEndLocation);
-            RouteHasAnySpecialities = PreviewRoute != null && PreviewRoute.HasSpecialities();
+            RouteHasAnySpecialities = PreviewRoute != null && PreviewRoute.HasSpecialties();
             IsRouteInfoAvailable= PreviewRoute != null;
         }
 
@@ -420,6 +426,46 @@ namespace TourPlanner.ViewModels
             IsRouteInfoAvailable = false;
         }
 
+
+
+        private void SaveTourInDatabase(object obj)
+        {
+            if (RealStartLocation == null || RealEndLocation == null || PreviewRoute == null || PreviewMap == null || TourName == null)
+            {
+                MessageBox.Show("You need set a name, fill in both locations and look at the preview before saving", "Form error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+
+            Tour tour = new Tour()
+            {
+                Name = TourName,
+                Description = TourDescription,
+                StartLocation = StartLocation,
+                EndLocation = EndLocation,
+                Image = PreviewMap,
+                Distance = PreviewRoute.Distance,
+                FuelUsed = PreviewRoute.FuelUsed,
+                EstimatedFormattedRouteTime = PreviewRoute.EstimatedFormattedRouteTime,
+                HasFerry = PreviewRoute.HasFerry,
+                HasTollRoad = PreviewRoute.HasTollRoad,
+                HasSeasonalClosure = PreviewRoute.HasSeasonalClosure,
+                HasHighway = PreviewRoute.HasHighway,
+                HasUnpaved = PreviewRoute.HasUnpaved,
+                HasCountryCross = PreviewRoute.HasCountryCross
+            };
+            string imagePath;
+            if (_databaseService.AddTour(tour, out imagePath) && _fileService.SaveImage(imagePath, tour.Image))
+            {
+                ((Window)obj).Close();
+            }
+            else
+            {
+                MessageBox.Show("There was an error, please try again.", "Failed saving", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+        }
         #endregion
     }
 }

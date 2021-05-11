@@ -26,13 +26,20 @@ namespace TourPlanner.ViewModels
             set { _greetMessage = value; OnPropertyChanged(); }
         }
 
+        private Tour _selectedTour;
+
+        public Tour SelectedTour
+        {
+            get { return _selectedTour; }
+            set { _selectedTour = value; OnPropertyChanged();}
+        }
+
+
         public ICommand SelectedTourChangedCommand => new RelayCommand(OnSelectedTourChangedCommandExecuted);
 
-        private static void OnSelectedTourChangedCommandExecuted(object obj)
+        private void OnSelectedTourChangedCommandExecuted(object obj)
         {
-            Tour selectedTour = (Tour) obj;
-            MessageBox.Show($"Tour name: {selectedTour.Name}", "Tour clicked", MessageBoxButton.OK,
-                MessageBoxImage.Error);
+            SelectedTour = (Tour) obj;
         }
 
         private void LoadGreetMessage()

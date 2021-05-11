@@ -1,0 +1,45 @@
+﻿<customControls:TourDetailControlBase
+    x:Class="TourPlanner.Views.TourDetailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:TourPlanner.Views"
+    xmlns:customControls="clr-namespace:TourPlanner.CustomControls"
+    xmlns:factory="clr-namespace:TourPlanner.Helper.Factory"
+    xmlns:factory1="clr-namespace:TourPlanner.ViewModels.Factory"
+    mc:Ignorable="d"
+    d:DesignHeight="450" d:DesignWidth="800"
+    factory:ViewModelLoader.FactoryType="{x:Type factory1:TourDetailViewModelFactory}">
+
+    <StackPanel>
+        <Label
+            FontWeight="Bold"
+            FontSize="18">Tour</Label>
+        <StackPanel
+            Orientation="Horizontal">
+            <Label
+                FontWeight="SemiBold"
+                FontSize="16">Title:</Label>
+            <Label
+                FontSize="14"
+                Content="{Binding Tour.Name, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"></Label>
+        </StackPanel>
+
+        <StackPanel
+            Orientation="Horizontal">
+            <Label
+                FontWeight="SemiBold"
+                FontSize="16">Description:</Label>
+            <Label
+                FontSize="14"
+                Content="{Binding Tour.Description, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"></Label>
+        </StackPanel>
+
+        <Image
+            Stretch="None"
+            Margin="5 0"
+            Source="{Binding Tour.Image, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
+        </Image>
+    </StackPanel>
+</customControls:TourDetailControlBase>

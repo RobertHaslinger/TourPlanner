@@ -6,5 +6,6 @@
              StartupUri="Views/BaseWindow.xaml">
     <Application.Resources>
          <converter:BoolToListHeightConverter x:Key="BoolToListHeightConverter"/>
+         <converter:TourToHeightConverter x:Key="TourToHeightConverter"/>
     </Application.Resources>
 </Application>

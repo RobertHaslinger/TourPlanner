@@ -47,5 +47,17 @@
                 </b:EventTrigger>
             </b:Interaction.Triggers>
         </local:TourListView>
+
+        <local:TourDetailView
+            Grid.Row="1"
+            Grid.Column="1"
+            Height="{Binding Path=DataContext.SelectedTour, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Converter={StaticResource TourToHeightConverter}}"
+            Tour="{Binding Path=DataContext.SelectedTour, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"></local:TourDetailView>
+
+        <Label
+            Grid.Row="1"
+            Grid.Column="1"
+            Height="{Binding Path=DataContext.SelectedTour, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Converter={StaticResource TourToHeightConverter}, ConverterParameter=True}"
+            >Select a Tour to get a detail view!</Label>
     </Grid>
 </Page>

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace TourPlanner.Views
 {
@@ -9,7 +10,15 @@ namespace TourPlanner.Views
     {
         public BaseWindow()
         {
-            InitializeComponent();
+
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception e)
+            {
+
+            }
         }
     }
 }

@@ -16,6 +16,7 @@ using System.Windows.Threading;
 using TourPlanner.DataAccessLayer.Models.Geodata;
 using TourPlanner.DataAccessLayer.Models.Route;
 using TourPlanner.Helper;
+using TourPlanner.Helper.Observer;
 using TourPlanner.Models;
 using TourPlanner.Services.Database;
 using TourPlanner.Services.Direction;
@@ -26,7 +27,7 @@ using TourPlanner.Views;
 
 namespace TourPlanner.ViewModels
 {
-    public class CreateTourViewModel : BaseViewModel
+    public class CreateTourViewModel : BaseViewModel, ISubject
     {
         #region Fields
 
@@ -35,6 +36,7 @@ namespace TourPlanner.ViewModels
         private IDirectionService _directionService => GetService<IDirectionService>();
         private IDatabaseService _databaseService => GetService<IDatabaseService>();
         private IFileService _fileService => GetService<IFileService>();
+        private List<IObserver> _observers = new List<IObserver>();
 
         #endregion
 
@@ -458,14 +460,29 @@ namespace TourPlanner.ViewModels
             if (_databaseService.AddTour(tour, out imagePath) && _fileService.SaveImage(imagePath, tour.Image))
             {
                 ((Window)obj).Close();
+                Notify();
             }
             else
             {
                 MessageBox.Show("There was an error, please try again.", "Failed saving", MessageBoxButton.OK,
                     MessageBoxImage.Error);
-                return;
             }
         }
         #endregion
+
+        public void Attach(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void Detach(IObserver observer)
+        {
+            _observers.Remove(observer);
+        }
+
+        public void Notify()
+        {
+            _observers.ForEach(o => o.Update(this));
+        }
     }
 }

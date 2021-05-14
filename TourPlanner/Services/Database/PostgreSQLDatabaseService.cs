@@ -42,7 +42,7 @@ namespace TourPlanner.Services.Database
                     cmd.Parameters.Add("endLocation", NpgsqlDbType.Varchar).Value = tour.EndLocation;
                     cmd.Parameters.Add("distance", NpgsqlDbType.Double).Value = tour.Distance;
                     cmd.Parameters.Add("fuel", NpgsqlDbType.Double).Value = tour.FuelUsed;
-                    cmd.Parameters.Add("routeTime", NpgsqlDbType.Varchar).Value = tour.EstimatedFormattedRouteTime;
+                    cmd.Parameters.Add("routeTime", NpgsqlDbType.Varchar).Value = tour.EstimatedFormattedRouteTime ?? "unclear";
                     cmd.Parameters.Add("hasTollRoad", NpgsqlDbType.Boolean).Value = tour.HasTollRoad;
                     cmd.Parameters.Add("hasFerry", NpgsqlDbType.Boolean).Value = tour.HasFerry;
                     cmd.Parameters.Add("hasSeasonalClosure", NpgsqlDbType.Boolean).Value = tour.HasSeasonalClosure;

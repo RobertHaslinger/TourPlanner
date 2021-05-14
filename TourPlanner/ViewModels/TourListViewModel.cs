@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TourPlanner.Helper;
+using TourPlanner.Helper.Observer;
 using TourPlanner.Models;
 using TourPlanner.Services.Database;
 using TourPlanner.Services.LocalFiles;
 
 namespace TourPlanner.ViewModels
 {
-    public class TourListViewModel : BaseViewModel
+    public class TourListViewModel : BaseViewModel, IObserver
     {
         private IDatabaseService _databaseService => GetService<IDatabaseService>();
         private IFileService _fileService => GetService<IFileService>();
@@ -45,7 +46,7 @@ namespace TourPlanner.ViewModels
 
         private void AddTour(object obj)
         {
-            throw new NotImplementedException();
+            GetWindowFactory("CreateTourViewFactory").CreateWindow(new Dictionary<string, object> {{"observers", new List<IObserver> {this}}}).Show();
         }
 
         public void UpdateTours()
@@ -55,6 +56,11 @@ namespace TourPlanner.ViewModels
             {
                 tour.LoadImage(_fileService);
             }
+        }
+
+        public void Update(ISubject subject)
+        {
+            UpdateTours();
         }
     }
 }

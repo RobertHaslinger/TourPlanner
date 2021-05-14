@@ -1,19 +1,28 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using TourPlanner.Helper;
+using TourPlanner.Helper.Factory;
 
 namespace TourPlanner.ViewModels
 {
     public class BaseViewModel : NotifyPropertyChangedBase
     {
         private ServiceLocator _serviceLocator = new ServiceLocator();
+        private WindowFactoryLocator _windowFactoryLocator = new WindowFactoryLocator();
 
         public ServiceLocator ServiceLocator => _serviceLocator;
+        public WindowFactoryLocator WindowFactoryLocator => _windowFactoryLocator;
 
         public T GetService<T>()
         {
             return _serviceLocator.GetService<T>();
+        }
+
+        public IWindowFactory GetWindowFactory(string key)
+        {
+            return _windowFactoryLocator.GetFactory(key);
         }
 
         /// <summary>

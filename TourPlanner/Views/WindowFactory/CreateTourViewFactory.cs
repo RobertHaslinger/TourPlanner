@@ -16,12 +16,12 @@ namespace TourPlanner.Views.WindowFactory
         {
             CreateTourView window = new CreateTourView();
             
-            if (window.DataContext is BaseViewModel && window.DataContext is ISubject)
+            if (window.DataContext is BaseViewModel && window.DataContext is ISubject subject)
             {
                 if (parameters != null)
                 {
                     List<IObserver> observers = parameters["observers"] as List<IObserver>;
-                    observers?.ForEach(((ISubject)window.DataContext).Attach);
+                    observers?.ForEach(subject.Attach);
                 }
             }
 

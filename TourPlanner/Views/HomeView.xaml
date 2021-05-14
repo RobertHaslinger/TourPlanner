@@ -52,7 +52,31 @@
             Grid.Row="1"
             Grid.Column="1"
             Height="{Binding Path=DataContext.SelectedTour, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Converter={StaticResource TourToHeightConverter}}"
-            Tour="{Binding Path=DataContext.SelectedTour, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"></local:TourDetailView>
+            Tour="{Binding Path=DataContext.SelectedTour, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
+            SelectedTourEditedCommand="{Binding Path=DataContext.SelectedTourEditedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
+            SelectedTourDeletedCommand="{Binding Path=DataContext.SelectedTourDeletedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
+            SelectedTourCopiedCommand="{Binding Path=DataContext.SelectedTourCopiedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}">
+            <b:Interaction.Triggers>
+                <b:EventTrigger
+                    EventName="TourEdited">
+                    <b:InvokeCommandAction
+                        EventArgsParameterPath="SelectedTour"
+                        Command="{Binding Path=SelectedTourEditedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TourDetailView}}}"></b:InvokeCommandAction>
+                </b:EventTrigger>
+                <b:EventTrigger
+                    EventName="TourDeleted">
+                    <b:InvokeCommandAction
+                        EventArgsParameterPath="SelectedTour"
+                        Command="{Binding Path=SelectedTourDeletedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TourDetailView}}}"></b:InvokeCommandAction>
+                </b:EventTrigger>
+                <b:EventTrigger
+                    EventName="TourCopied">
+                    <b:InvokeCommandAction
+                        EventArgsParameterPath="SelectedTour"
+                        Command="{Binding Path=SelectedTourCopiedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TourDetailView}}}"></b:InvokeCommandAction>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+        </local:TourDetailView>
 
         <Label
             Grid.Row="1"

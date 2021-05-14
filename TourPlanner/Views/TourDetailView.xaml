@@ -13,9 +13,33 @@
     factory:ViewModelLoader.FactoryType="{x:Type factory1:TourDetailViewModelFactory}">
 
     <StackPanel>
-        <Label
-            FontWeight="Bold"
-            FontSize="18">Tour</Label>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"></ColumnDefinition>
+                <ColumnDefinition Width="80*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label
+                FontWeight="Bold"
+                FontSize="18">Tour</Label>
+            
+            <StackPanel
+                Grid.Column="1"
+                Orientation="Horizontal"
+                Margin="10 5"
+                HorizontalAlignment="Right">
+                <Button
+                    Click="HandleEditClick"
+                    HorizontalAlignment="Right">Edit</Button>
+                <Button
+                    Click="HandleDeleteClick"
+                    HorizontalAlignment="Right">Delete</Button>
+                <Button
+                    Click="HandleCopyClick"
+                    HorizontalAlignment="Right">Copy</Button>
+            </StackPanel>
+            
+        </Grid>
         <StackPanel
             Orientation="Horizontal">
             <Label

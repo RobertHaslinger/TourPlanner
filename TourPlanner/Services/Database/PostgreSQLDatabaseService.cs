@@ -77,7 +77,23 @@ namespace TourPlanner.Services.Database
 
         public void DeleteTour(int tourId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using NpgsqlConnection con = new NpgsqlConnection(_connectionString);
+                con.Open();
+                string statement = "DELETE FROM \"dev\".\"Tours\" WHERE \"Id\"=@id";
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(statement, con))
+                {
+                    cmd.Parameters.Add("id", NpgsqlDbType.Integer).Value = tourId;
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
 
         public void EditTour(Tour editedTour)

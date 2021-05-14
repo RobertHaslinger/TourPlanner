@@ -35,7 +35,14 @@ namespace TourPlanner.Views
         private void HandleTourSelected(object sender, SelectionChangedEventArgs e)
         {
             TourSelectedEventArgs eventArgs= new TourSelectedEventArgs(TourSelectedEvent);
-            eventArgs.SelectedTour = e.AddedItems[0] as Tour;
+            //catch exception if no tour is selected
+            try
+            {
+                eventArgs.SelectedTour = e.AddedItems[0] as Tour;
+            }
+            catch (Exception exception)
+            {
+            }
             RaiseEvent(eventArgs);
         }
     }

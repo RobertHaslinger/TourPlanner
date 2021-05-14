@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TourPlanner.CustomControls;
+using TourPlanner.Models;
 
 namespace TourPlanner.Views
 {
@@ -23,6 +25,27 @@ namespace TourPlanner.Views
         public TourDetailView()
         {
             InitializeComponent();
+        }
+
+        private void HandleEditClick(object sender, RoutedEventArgs e)
+        {
+            TourSelectedEventArgs eventArgs = new TourSelectedEventArgs(TourEditedEvent);
+            eventArgs.SelectedTour = Tour;
+            RaiseEvent(eventArgs);
+        }
+
+        private void HandleDeleteClick(object sender, RoutedEventArgs e)
+        {
+            TourSelectedEventArgs eventArgs = new TourSelectedEventArgs(TourDeletedEvent);
+            eventArgs.SelectedTour = Tour;
+            RaiseEvent(eventArgs);
+        }
+
+        private void HandleCopyClick(object sender, RoutedEventArgs e)
+        {
+            TourSelectedEventArgs eventArgs = new TourSelectedEventArgs(TourCopiedEvent);
+            eventArgs.SelectedTour = Tour;
+            RaiseEvent(eventArgs);
         }
     }
 }

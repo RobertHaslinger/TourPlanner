@@ -21,6 +21,7 @@ namespace TourPlanner.ViewModels
 
         public TourListViewModel()
         {
+            BaseObserverSingleton.GetInstance.TourObservers.Add(this);
         }
 
         private ObservableCollection<Tour> _tours;

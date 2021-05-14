@@ -12,7 +12,7 @@ namespace TourPlanner.Models
 {
     public class Tour : NotifyPropertyChangedBase
     {
-        private string _imagePath;
+        public string ImagePath { get; }
         #region Properties
 
         private bool _hasTollRoad;
@@ -148,7 +148,7 @@ namespace TourPlanner.Models
             Description = reader["Description"].ToString();
             StartLocation = reader["StartLocation"].ToString();
             EndLocation = reader["EndLocation"].ToString();
-            _imagePath = reader["ImagePath"].ToString();
+            ImagePath = reader["ImagePath"].ToString();
             HasTollRoad = (bool)reader["HasTollRoad"];
             HasFerry = (bool)reader["HasFerry"];
             HasSeasonalClosure = (bool)reader["HasSeasonalClosure"];
@@ -167,7 +167,7 @@ namespace TourPlanner.Models
 
         public void LoadImage(IFileService fileService)
         {
-            Image = HelperBase.LoadImage(fileService.GetImageBytes(_imagePath));
+            Image = HelperBase.LoadImage(fileService.GetImageBytes(ImagePath));
         }
     }
 }

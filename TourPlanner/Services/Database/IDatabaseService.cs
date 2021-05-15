@@ -11,7 +11,7 @@ namespace TourPlanner.Services.Database
     {
         bool AddTour(Tour tour, out string tourImagePath);
         void DeleteTour(int tourId);
-        void EditTour(Tour editedTour);
+        bool EditTour(Tour editedTour, out string tourImagePath);
         List<Tour> GetTours();
     }
 }

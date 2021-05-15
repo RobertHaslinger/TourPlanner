@@ -47,7 +47,7 @@ namespace TourPlanner.ViewModels
 
         private void AddTour(object obj)
         {
-            GetWindowFactory("CreateTourViewFactory").CreateWindow(new Dictionary<string, object> {{"observers", new List<IObserver> {this}}}).Show();
+            GetWindowFactory("CreateTourViewFactory").CreateWindow().Show();
         }
 
         public void UpdateTours()

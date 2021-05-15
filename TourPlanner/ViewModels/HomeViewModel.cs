@@ -53,7 +53,8 @@ namespace TourPlanner.ViewModels
 
         private void OnSelectedTourEditedCommandExecuted(object obj)
         {
-            
+            Tour tour = (Tour) obj;
+            GetWindowFactory("EditTourViewFactory").CreateWindow(new Dictionary<string, object>() {{"tour", tour}}).Show();
         }
 
 

@@ -85,7 +85,20 @@ namespace TourPlanner.ViewModels
 
         private void OnSelectedTourCopiedCommandExecuted(object obj)
         {
-            
+            Tour tour = (Tour)obj;
+            string imagePath;
+            if (_databaseService.AddTour(tour, out imagePath) && _fileService.SaveImage(imagePath, tour.Image))
+            {
+                BaseObserverSingleton.GetInstance.TourObservers.ForEach(Attach);
+                MessageBox.Show($"Tour \"{tour.Name}\" copied", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                Notify();
+                BaseObserverSingleton.GetInstance.TourObservers.ForEach(Detach);
+            }
+            else
+            {
+                MessageBox.Show("There was an error, please try again.", "Failed saving", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         private void OnSelectedTourChangedCommandExecuted(object obj)

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Newtonsoft.Json;
 using TourPlanner.Helper;
 using TourPlanner.Helper.Observer;
 using TourPlanner.Models;
@@ -44,6 +47,26 @@ namespace TourPlanner.ViewModels
         }
 
         public ICommand AddTourCommand => new RelayCommand(AddTour);
+        public ICommand ImportJsonCommand => new RelayCommand(ImportJson);
+        public ICommand ExportJsonCommand => new RelayCommand(ExportJson);
+
+        private void ImportJson(object obj)
+        {
+            GetWindowFactory("ImportJsonWindowFactory").CreateWindow().Show();
+        }
+        private void ExportJson(object obj)
+        {
+            string json = JsonConvert.SerializeObject(Tours);
+            string path= $"{HelperBase.GetExecutiveFullPath(ConfigurationManager.AppSettings["json_export_path"])}\\{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.json";
+            if (_fileService.ExportJson(path, json))
+            {
+                MessageBox.Show($"{Tours.Count} tours exported", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("There was an error exporting, please try again", "Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
 
         private void AddTour(object obj)
         {

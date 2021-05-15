@@ -15,7 +15,7 @@ namespace TourPlanner.Services.LocalFiles
             try
             {
                 string dir = Path.GetDirectoryName(path);
-                if (!Directory.Exists(Path.GetDirectoryName(dir)))
+                if (!Directory.Exists(dir))
                 {
                     Directory.CreateDirectory(dir);
                 }
@@ -34,6 +34,25 @@ namespace TourPlanner.Services.LocalFiles
                 return false;
             }
             
+        }
+
+        public bool ExportJson(string path, string json)
+        {
+            try
+            {
+                string dir = Path.GetDirectoryName(path);
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+                File.WriteAllText(path, json);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
         }
 
         public bool DeleteImage(string path)

@@ -14,5 +14,10 @@ namespace TourPlanner.Services.Map
         {
             return new BitmapImage(new Uri("/TourPlanner;component/sample_map_600x400.png", UriKind.Absolute));
         }
+
+        public async Task<BitmapImage> GetMapWithStrings(string start, string end)
+        {
+            return new BitmapImage(new Uri("/TourPlanner;component/sample_map_600x400.png", UriKind.Absolute));
+        }
     }
 }

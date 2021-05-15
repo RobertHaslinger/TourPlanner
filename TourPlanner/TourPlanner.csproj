@@ -15,12 +15,16 @@
 
   <ItemGroup>
     <None Remove="Images\home.png" />
+    <None Remove="Images\json_export.png" />
+    <None Remove="Images\json_import.png" />
     <None Remove="Images\sample_map_600x400.png" />
     <None Remove="Images\settings.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Images\home.png" />
+    <Resource Include="Images\json_export.png" />
+    <Resource Include="Images\json_import.png" />
     <Resource Include="Images\sample_map_600x400.png" />
     <Resource Include="Images\settings.png" />
   </ItemGroup>

@@ -10,6 +10,7 @@ namespace TourPlanner.Services.LocalFiles
     public interface IFileService
     {
         bool SaveImage(string path, BitmapImage image);
+        bool ExportJson(string path, string json);
         bool DeleteImage(string path);
 
         byte[] GetImageBytes(string path);

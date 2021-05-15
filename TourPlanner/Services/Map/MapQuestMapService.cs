@@ -29,5 +29,22 @@ namespace TourPlanner.Services.Map
                 return null;
             }
         }
+
+        public async Task<BitmapImage> GetMapWithStrings(string start, string end)
+        {
+            if (start == null || end == null) return null;
+            try
+            {
+                string uri =
+                    $"staticmap/v5/map?start={start}&end={end}&size=600,400&format=png&key={ConfigurationManager.AppSettings["consumer_key"]}";
+                using var response = await HttpClient.GetAsync(uri);
+                BitmapImage image = HelperBase.LoadImage(await response.Content.ReadAsByteArrayAsync());
+                return image;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
     }
 }

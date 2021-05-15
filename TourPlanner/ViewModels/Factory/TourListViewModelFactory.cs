@@ -31,6 +31,7 @@ namespace TourPlanner.ViewModels.Factory
                     new PostgreSQLDatabaseService(ConfigurationManager.AppSettings["connection_string"]));
                 vm.ServiceLocator.RegisterService<IFileService>(new FileService());
                 vm.WindowFactoryLocator.RegisterFactory(new CreateTourViewFactory(), "CreateTourViewFactory");
+                vm.WindowFactoryLocator.RegisterFactory(new ImportJsonViewFactory(), "ImportJsonViewFactory");
             }
             return vm;
         }

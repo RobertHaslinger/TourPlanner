@@ -11,5 +11,6 @@ namespace TourPlanner.Services.Map
     public interface IMapService
     {
         Task<BitmapImage> GetMapWithLocations(Location start, Location end);
+        Task<BitmapImage> GetMapWithStrings(string start, string end);
     }
 }

@@ -20,7 +20,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*"></ColumnDefinition>
-            <ColumnDefinition Width="20*"></ColumnDefinition>
+            <ColumnDefinition Width="80*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Label
@@ -28,10 +28,32 @@
             FontWeight="SemiBold"
             FontSize="16">Tours</Label>
 
-        <Button
+        <StackPanel
             Grid.Row="0"
             Grid.Column="1"
-            Command="{Binding AddTourCommand}">Add new Tour</Button>
+            Orientation="Horizontal"
+            HorizontalAlignment="Right"
+            Margin="10 5">
+
+            <Button
+                Command="{Binding AddTourCommand}">Add new Tour</Button>
+            <Button
+                Command="{Binding ExportJsonCommand}">
+                <Image
+                    Width="20"
+                    Height="20"
+                    ToolTip="Export JSON"
+                    Source="/TourPlanner;component/Images/json_export.png"></Image>
+            </Button>
+            <Button
+                Command="{Binding ImportJsonCommand}">
+                <Image
+                    Width="20"
+                    Height="20"
+                    ToolTip="Import JSON"
+                    Source="/TourPlanner;component/Images/json_import.png"></Image>
+            </Button>
+        </StackPanel>
 
         <ListView
             Grid.Row="1"

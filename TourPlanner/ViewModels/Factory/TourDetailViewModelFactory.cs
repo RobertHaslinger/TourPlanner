@@ -9,6 +9,7 @@ using TourPlanner.Helper;
 using TourPlanner.Helper.Factory;
 using TourPlanner.Services.Database;
 using TourPlanner.Services.LocalFiles;
+using TourPlanner.Views.WindowFactory;
 
 namespace TourPlanner.ViewModels.Factory
 {
@@ -25,6 +26,7 @@ namespace TourPlanner.ViewModels.Factory
                 vm.ServiceLocator.RegisterService<IDatabaseService>(
                     new PostgreSQLDatabaseService(ConfigurationManager.AppSettings["connection_string"]));
                 vm.ServiceLocator.RegisterService<IFileService>(new FileService());
+                vm.WindowFactoryLocator.RegisterFactory(new RouteViewFactory(), "RouteViewFactory");
             }
             return vm;
         }

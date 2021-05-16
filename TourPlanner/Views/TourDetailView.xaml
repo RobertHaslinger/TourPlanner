@@ -12,58 +12,101 @@
     d:DesignHeight="450" d:DesignWidth="800"
     factory:ViewModelLoader.FactoryType="{x:Type factory1:TourDetailViewModelFactory}">
 
-    <StackPanel>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20*"></ColumnDefinition>
-                <ColumnDefinition Width="80*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+    <ScrollViewer
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="60*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-            <Label
+                <Label
                 FontWeight="Bold"
                 FontSize="18">Tour</Label>
-            
-            <StackPanel
-                Grid.Column="1"
+
+                <Button
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Command="{Binding ShowRouteCommand}"
+                    CommandParameter="{Binding Tour, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">Show Route</Button>
+
+                <StackPanel
+                Grid.Column="2"
                 Orientation="Horizontal"
                 Margin="10 5"
                 HorizontalAlignment="Right">
-                <Button
+                    <Button
                     Click="HandleEditClick"
                     HorizontalAlignment="Right">Edit</Button>
-                <Button
+                    <Button
                     Click="HandleDeleteClick"
                     HorizontalAlignment="Right">Delete</Button>
-                <Button
+                    <Button
                     Click="HandleCopyClick"
                     HorizontalAlignment="Right">Copy</Button>
-            </StackPanel>
-            
-        </Grid>
-        <StackPanel
+                </StackPanel>
+
+            </Grid>
+            <StackPanel
             Orientation="Horizontal">
-            <Label
+                <Label
                 FontWeight="SemiBold"
                 FontSize="16">Title:</Label>
-            <Label
+                <Label
                 FontSize="14"
                 Content="{Binding Tour.Name, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"></Label>
-        </StackPanel>
+            </StackPanel>
 
-        <StackPanel
+            <StackPanel
             Orientation="Horizontal">
-            <Label
+                <Label
                 FontWeight="SemiBold"
                 FontSize="16">Description:</Label>
-            <Label
+                <Label
                 FontSize="14"
                 Content="{Binding Tour.Description, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"></Label>
-        </StackPanel>
+            </StackPanel>
 
-        <Image
-            Stretch="None"
-            Margin="5 0"
-            Source="{Binding Tour.Image, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
-        </Image>
-    </StackPanel>
+            <StackPanel>
+
+                    <StackPanel
+                    Orientation="Horizontal">
+                        <Label
+                        FontSize="14">Start:</Label>
+                        <Label
+                        FontSize="14"
+                        Content="{Binding Tour.StartLocation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"></Label>
+                    </StackPanel>
+                    <StackPanel
+                    Orientation="Horizontal">
+                        <Label
+                        FontSize="14">End:</Label>
+                        <Label
+                        FontSize="14"
+                        Content="{Binding Tour.EndLocation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"></Label>
+                    </StackPanel>
+                    <StackPanel
+                    Orientation="Horizontal">
+                        <Label
+                        FontSize="14">Distance:</Label>
+                        <Label
+                        FontSize="14"
+                        Content="{Binding Tour.Distance, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"></Label>
+                    </StackPanel>
+                    <StackPanel
+                    Orientation="Horizontal">
+                        <Label
+                        FontSize="14">Duration:</Label>
+                        <Label
+                        FontSize="14"
+                        Content="{Binding Tour.EstimatedFormattedRouteTime, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"></Label>
+                    </StackPanel>
+                </StackPanel>
+
+
+        </StackPanel>
+    </ScrollViewer>
 </customControls:TourDetailControlBase>

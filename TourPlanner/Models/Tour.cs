@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Newtonsoft.Json;
 using Npgsql;
 using TourPlanner.Helper;
 using TourPlanner.Services.LocalFiles;
@@ -113,6 +114,7 @@ namespace TourPlanner.Models
 
         private BitmapImage _image;
 
+        [JsonIgnore]
         public BitmapImage Image
         {
             get { return _image; }

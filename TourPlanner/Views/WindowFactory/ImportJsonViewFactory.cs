@@ -15,7 +15,7 @@ namespace TourPlanner.Views.WindowFactory
     {
         public Window CreateWindow(Dictionary<string, object> parameters = null)
         {
-            CreateTourView window = new CreateTourView();
+            ImportJsonView window = new ImportJsonView();
 
             if (window.DataContext is BaseViewModel && window.DataContext is ISubject subject)
             {

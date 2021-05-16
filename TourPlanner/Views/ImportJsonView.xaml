@@ -4,30 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner.Views"
+        xmlns:factory="clr-namespace:TourPlanner.Helper.Factory"
+        xmlns:factory1="clr-namespace:TourPlanner.ViewModels.Factory"
         mc:Ignorable="d"
-        Title="Import Tours in JSON Format" Height="450" Width="800">
+        Title="Import Tours in JSON Format" Height="450" Width="800"
+        factory:ViewModelLoader.FactoryType="{x:Type factory1:ImportJsonViewModelFactory}">
     <StackPanel
         Margin="5">
 
         <Label
             VerticalAlignment="Center">Enter your Tour-Array in Json Format:</Label>
 
-        <TextBox
-            Margin="10"
-            AcceptsReturn="True"
-            AcceptsTab="True"
-            TextWrapping="Wrap"
-            Text="{Binding TourJson}"></TextBox>
+        <ScrollViewer
+            MaxHeight="200"
+            Margin="10">
+            <TextBox
+                AcceptsReturn="True"
+                AcceptsTab="True"
+                TextWrapping="Wrap"
+                Text="{Binding TourJson}"></TextBox>
+        </ScrollViewer>
 
         <StackPanel
             HorizontalAlignment="Center"
             Orientation="Horizontal"
             Margin="10">
             <Button
+                IsEnabled="{Binding IsImportingEnabled}"
                 Command="{Binding CancelCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
                        AncestorType={x:Type Window}}}">Cancel</Button>
             <Button
+                IsEnabled="{Binding IsImportingEnabled}"
                 Command="{Binding ImportCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, 
                        AncestorType={x:Type Window}}}">Import</Button>

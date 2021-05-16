@@ -52,7 +52,7 @@ namespace TourPlanner.ViewModels
 
         private void ImportJson(object obj)
         {
-            GetWindowFactory("ImportJsonWindowFactory").CreateWindow().Show();
+            GetWindowFactory("ImportJsonViewFactory").CreateWindow().Show();
         }
         private void ExportJson(object obj)
         {

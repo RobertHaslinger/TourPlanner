@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Windows.Media.Imaging;
 using Newtonsoft.Json;
 using Npgsql;
 using TourPlanner.Helper;
+using TourPlanner.Services.Database;
 using TourPlanner.Services.LocalFiles;
 
 namespace TourPlanner.Models
@@ -136,6 +138,15 @@ namespace TourPlanner.Models
             get { return _endLocation; }
             set { _endLocation = value; OnPropertyChanged(); }
         }
+
+        private ObservableCollection<TourLog> _logs;
+
+        public ObservableCollection<TourLog> Logs
+        {
+            get { return _logs; }
+            set { _logs = value; OnPropertyChanged();}
+        }
+
         #endregion
 
         public Tour()
@@ -170,6 +181,11 @@ namespace TourPlanner.Models
         public void LoadImage(IFileService fileService)
         {
             Image = HelperBase.LoadImage(fileService.GetImageBytes(ImagePath));
+        }
+
+        public void LoadLogs(IDatabaseService databaseService)
+        {
+            Logs = new ObservableCollection<TourLog>(databaseService.GetTourLogs(Id));
         }
     }
 }

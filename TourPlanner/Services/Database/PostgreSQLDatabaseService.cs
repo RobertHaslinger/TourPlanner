@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
 using NpgsqlTypes;
+using TourPlanner.Enums;
 using TourPlanner.Helper;
 using TourPlanner.Models;
 
@@ -73,6 +74,70 @@ namespace TourPlanner.Services.Database
                 tourImagePath = "";
                 return false;
             }
+        }
+
+        public bool AddTourLog(TourLog log)
+        {
+            try
+            {
+                using NpgsqlConnection con = new NpgsqlConnection(_connectionString);
+                con.Open();
+                string statement =
+                    "INSERT INTO  \"dev\".\"Logs\"(\"Name\", \"Report\", \"Distance\", \"TotalTime\", \"Rating\", \"AverageSpeed\", \"Vehicle\", " +
+                    "\"EnergyUnitUsed\", \"TourId\") " +
+                    "VALUES(@name, @report, @distance, @totalTime, @rating, @averageSpeed, @vehicle, @energyUnitUsed, @tourId) RETURNING \"Id\"";
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(statement, con))
+                {
+                    cmd.Parameters.Add("name", NpgsqlDbType.Varchar).Value = log.Name;
+                    cmd.Parameters.Add("report", NpgsqlDbType.Varchar).Value = log.Report;
+                    cmd.Parameters.Add("distance", NpgsqlDbType.Double).Value = log.Distance;
+                    cmd.Parameters.Add("totalTime", NpgsqlDbType.Varchar).Value = log.TotalTime;
+                    cmd.Parameters.Add("rating", NpgsqlDbType.Varchar).Value = Enum.GetName(typeof(Rating), log.Rating);
+                    cmd.Parameters.Add("averageSpeed", NpgsqlDbType.Double).Value = log.AverageSpeed;
+                    cmd.Parameters.Add("vehicle", NpgsqlDbType.Varchar).Value = Enum.GetName(typeof(Vehicle), log.Vehicle);
+                    cmd.Parameters.Add("energyUnitUsed", NpgsqlDbType.Double).Value = log.EnergyUnitUsed;
+                    cmd.Parameters.Add("tourId", NpgsqlDbType.Integer).Value = log.TourId;
+
+                    cmd.Prepare();
+                    return 1 == cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return false;
+            }
+        }
+
+        public List<TourLog> GetTourLogs(int tourId)
+        {
+            List<TourLog> logs = new List<TourLog>();
+            try
+            {
+                using NpgsqlConnection con = new NpgsqlConnection(_connectionString);
+                con.Open();
+                string statement = "SELECT * FROM \"dev\".\"Logs\" WHERE \"TourId\"=@tourId";
+
+                using (NpgsqlCommand cmd = new NpgsqlCommand(statement, con))
+                {
+                    cmd.Parameters.Add("tourId", NpgsqlDbType.Integer).Value = tourId;
+                    using NpgsqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        logs.Add(new TourLog(reader));
+                    }
+                    reader.Close();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return logs;
         }
 
         public void DeleteTour(int tourId)

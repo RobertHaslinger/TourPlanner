@@ -1,0 +1,152 @@
+﻿<Window x:Class="TourPlanner.Views.CreateTourLogView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TourPlanner.Views"
+        xmlns:factory="clr-namespace:TourPlanner.Helper.Factory"
+        xmlns:factory1="clr-namespace:TourPlanner.ViewModels.Factory"
+        mc:Ignorable="d"
+        Title="Create a new Tour Log" Height="720" Width="1080"
+        factory:ViewModelLoader.FactoryType="{x:Type factory1:CreateTourLogViewModelFactory}">
+    <StackPanel>
+        <StackPanel
+            Margin="5"
+            Orientation="Horizontal">
+            <Label
+                MinWidth="100">Log name:</Label>
+            <TextBox
+                MinHeight="0"
+                MinWidth="200"
+                Margin="0"
+                Padding="0"
+                Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </StackPanel>
+
+        <StackPanel
+            Margin="5"
+            Orientation="Horizontal">
+            <Label
+                MinWidth="100">Report:</Label>
+            <TextBox
+                MinHeight="0"
+                MinWidth="200"
+                Margin="0"
+                Padding="0"
+                Text="{Binding Report, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </StackPanel>
+
+        <StackPanel
+            Margin="5"
+            Orientation="Horizontal">
+            <Label
+                MinWidth="100">Total time:</Label>
+            <TextBox
+                MinHeight="0"
+                MinWidth="200"
+                Margin="0"
+                Padding="0"
+                Text="{Binding TotalTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.Style>
+                    <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                        <Style.Resources>
+                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left" AlignmentY="Center" Stretch="None">
+                                <VisualBrush.Visual>
+                                    <Label Content="hh:mm:ss" Foreground="Gray" />
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Style.Resources>
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                            </Trigger>
+                            <Trigger Property="Text" Value="{x:Null}">
+                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
+        </StackPanel>
+
+        <StackPanel
+            Margin="5"
+            Orientation="Horizontal">
+            <Label
+                MinWidth="100">Distance:</Label>
+            <TextBox
+                MinHeight="0"
+                MinWidth="200"
+                Margin="0"
+                Padding="0"
+                Text="{Binding Distance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </StackPanel>
+
+        <StackPanel
+            Margin="5"
+            Orientation="Horizontal">
+            <Label
+                MinWidth="100">Vehicle:</Label>
+            <ComboBox
+                MinHeight="0"
+                MinWidth="200"
+                Margin="0"
+                Padding="0"
+                SelectedValue="{Binding Vehicle, UpdateSourceTrigger=PropertyChanged}" 
+                ItemsSource="{Binding PossibleVehicles}"></ComboBox>
+        </StackPanel>
+
+        <StackPanel
+            Margin="5"
+            Orientation="Horizontal">
+            <Label
+                MinWidth="100"
+                Content="{Binding EnergyUnit}"></Label>
+            <TextBox
+                MinHeight="0"
+                MinWidth="200"
+                Margin="0"
+                Padding="0"
+                Text="{Binding EnergyUnitUsed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </StackPanel>
+
+        <StackPanel
+            Margin="5"
+            Orientation="Horizontal">
+            <Label
+                MinWidth="100">Average Speed:</Label>
+            <TextBox
+                MinHeight="0"
+                MinWidth="200"
+                Margin="0"
+                Padding="0"
+                Text="{Binding AverageSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
+        </StackPanel>
+
+        <StackPanel
+            Margin="5"
+            Orientation="Horizontal">
+            <Label
+                MinWidth="100">Rating:</Label>
+            <ComboBox
+                MinHeight="0"
+                MinWidth="200"
+                Margin="0"
+                Padding="0"
+                SelectedValue="{Binding Rating, UpdateSourceTrigger=PropertyChanged}" 
+                ItemsSource="{Binding PossibleRatings}"></ComboBox>
+        </StackPanel>
+
+        <Button
+            Margin="10 5"
+            HorizontalAlignment="Left"
+            Background="#EAED7F"
+            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+            Command="{Binding SaveCommand}">Save</Button>
+    </StackPanel>
+</Window>

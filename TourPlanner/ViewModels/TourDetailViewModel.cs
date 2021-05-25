@@ -17,6 +17,12 @@ namespace TourPlanner.ViewModels
         private IFileService _fileService => GetService<IFileService>();
 
         public ICommand ShowRouteCommand => new RelayCommand(ShowRoute);
+        public ICommand AddLogCommand => new RelayCommand(AddLog);
+
+        private void AddLog(object obj)
+        {
+            GetWindowFactory("CreateTourLogViewFactory").CreateWindow(new Dictionary<string, object> {{"tourId", (int)obj}}).Show();
+        }
 
         private void ShowRoute(object obj)
         {

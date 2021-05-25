@@ -8,16 +8,18 @@ using System.Windows;
 using TourPlanner.Helper;
 using TourPlanner.Helper.Factory;
 using TourPlanner.Services.Database;
+using TourPlanner.Services.Direction;
 using TourPlanner.Services.LocalFiles;
-using TourPlanner.Views.WindowFactory;
+using TourPlanner.Services.Map;
+using TourPlanner.Services.Prediction;
 
 namespace TourPlanner.ViewModels.Factory
 {
-    public class TourDetailViewModelFactory : IViewModelFactory
+    public class CreateTourLogViewModelFactory : IViewModelFactory
     {
         public object CreateViewModel(DependencyObject sender)
         {
-            TourDetailViewModel vm = new TourDetailViewModel();
+            CreateTourLogViewModel vm = new CreateTourLogViewModel();
             if (Designer.IsDesignMode)
             {
             }
@@ -25,9 +27,6 @@ namespace TourPlanner.ViewModels.Factory
             {
                 vm.ServiceLocator.RegisterService<IDatabaseService>(
                     new PostgreSQLDatabaseService(ConfigurationManager.AppSettings["connection_string"]));
-                vm.ServiceLocator.RegisterService<IFileService>(new FileService());
-                vm.WindowFactoryLocator.RegisterFactory(new CreateTourLogViewFactory(), "CreateTourLogViewFactory");
-                vm.WindowFactoryLocator.RegisterFactory(new RouteViewFactory(), "RouteViewFactory");
             }
             return vm;
         }

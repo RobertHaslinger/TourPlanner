@@ -106,6 +106,34 @@
                     </StackPanel>
                 </StackPanel>
 
+            <StackPanel
+                Orientation="Horizontal"
+                Margin="10">
+                <Label
+                    FontWeight="SemiBold"
+                    FontSize="16">Logs</Label>
+                <Button
+                    Margin="10 5"
+                    Command="{Binding Path=AddLogCommand}"
+                    CommandParameter="{Binding Tour.Id, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">New Log</Button>
+            </StackPanel>
+
+            <DataGrid
+                IsReadOnly="True"
+                AutoGenerateColumns="False"
+                HorizontalAlignment="Left"
+                ItemsSource="{Binding Tour.Logs, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Log" Width="Auto"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Report}" Header="Report" Width="Auto"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Vehicle}" Header="Vehicle" Width="Auto"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Distance}" Header="Distance (km)" Width="Auto"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding EnergyUnitUsed}" Header="Energy used (kcal/fuel)" Width="Auto"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding TotalTime}" Header="Total Time (hours)" Width="Auto"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding AverageSpeed}" Header="Speed (km/h)" Width="Auto"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Rating}" Header="Rating" Width="Auto"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
 
         </StackPanel>
     </ScrollViewer>

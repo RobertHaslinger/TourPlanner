@@ -79,6 +79,7 @@ namespace TourPlanner.ViewModels
             foreach (Tour tour in Tours)
             {
                 tour.LoadImage(_fileService);
+                tour.LoadLogs(_databaseService);
             }
         }
 

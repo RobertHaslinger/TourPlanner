@@ -14,5 +14,8 @@ namespace TourPlanner.Services.LocalFiles
         bool DeleteImage(string path);
 
         byte[] GetImageBytes(string path);
+
+        string ReadLogFile();
+        bool ClearLogFile();
     }
 }

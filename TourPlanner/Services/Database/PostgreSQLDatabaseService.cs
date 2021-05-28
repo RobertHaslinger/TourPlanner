@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
 using Npgsql;
 using NpgsqlTypes;
 using TourPlanner.Enums;
@@ -16,10 +17,12 @@ namespace TourPlanner.Services.Database
     public class PostgreSQLDatabaseService : IDatabaseService
     {
         private string _connectionString;
+        private static readonly ILog _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public PostgreSQLDatabaseService(string connectionString)
         {
             _connectionString = connectionString;
+            log4net.Config.XmlConfigurator.Configure();
         }
 
         public bool AddTour(Tour tour, out string tourImagePath)
@@ -64,13 +67,14 @@ namespace TourPlanner.Services.Database
                     cmd.Parameters.Add("imagePath", NpgsqlDbType.Varchar).Value = tourImagePath;
 
                     cmd.Prepare();
+                    _log.Info("Tour added");
                     return cmd.ExecuteNonQuery() == 1;
                 }
 
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                _log.Error("An Exception occurred while trying to add a new Tour", e);
                 tourImagePath = "";
                 return false;
             }
@@ -100,13 +104,14 @@ namespace TourPlanner.Services.Database
                     cmd.Parameters.Add("tourId", NpgsqlDbType.Integer).Value = log.TourId;
 
                     cmd.Prepare();
+                    _log.Info("Tour log added");
                     return 1 == cmd.ExecuteNonQuery();
                 }
 
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                _log.Error("An Exception occurred while trying to add a new Tour Log", e);
                 return false;
             }
         }
@@ -134,7 +139,7 @@ namespace TourPlanner.Services.Database
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _log.Error("An Exception occurred while trying to fetch all tour logs", e);
             }
 
             return logs;
@@ -153,11 +158,12 @@ namespace TourPlanner.Services.Database
                     cmd.Parameters.Add("id", NpgsqlDbType.Integer).Value = tourId;
                     cmd.Prepare();
                     cmd.ExecuteNonQuery();
+                    _log.Info("Tour deleted");
                 }
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                _log.Error($"An Exception occurred while trying to delete Tour (id:{tourId})", e);
             }
         }
 
@@ -204,13 +210,14 @@ namespace TourPlanner.Services.Database
                     cmd.Parameters.Add("imagePath", NpgsqlDbType.Varchar).Value = tourImagePath;
 
                     cmd.Prepare();
+                    _log.Info("Tour edited");
                     return cmd.ExecuteNonQuery() == 1;
                 }
 
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                _log.Error($"An Exception occurred while trying to edit a Tour", e);
                 tourImagePath = "";
                 return false;
             }
@@ -236,7 +243,7 @@ namespace TourPlanner.Services.Database
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _log.Error("An Exception occurred while trying to fetch all tours", e);
             }
 
             return tours;

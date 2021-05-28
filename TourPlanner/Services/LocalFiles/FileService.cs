@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
@@ -79,6 +81,31 @@ namespace TourPlanner.Services.LocalFiles
             {
                 Console.WriteLine(e);
                 return null;
+            }
+        }
+
+        public string ReadLogFile()
+        {
+            try
+            {
+                return File.ReadAllText(ConfigurationManager.AppSettings["log_file_path"]);
+            }
+            catch (Exception e)
+            {
+                return "Log file either does not exist or is not accessible";
+            }
+        }
+
+        public bool ClearLogFile()
+        {
+            try
+            {
+                File.WriteAllText(ConfigurationManager.AppSettings["log_file_path"], "Empty");
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
             }
         }
     }

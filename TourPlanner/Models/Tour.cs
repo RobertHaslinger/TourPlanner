@@ -178,6 +178,18 @@ namespace TourPlanner.Models
             return HasTollRoad || HasFerry || HasSeasonalClosure || HasHighway || HasUnpaved || HasCountryCross;
         }
 
+        public string GetSpecialtiesString()
+        {
+            string specialties = "";
+            specialties += HasTollRoad ? "|Toll road| " : "";
+            specialties += HasFerry ? "|Ferry| " : "";
+            specialties += HasSeasonalClosure ? "|Seasonal closure| " : "";
+            specialties += HasHighway ? "|Highway| " : "";
+            specialties += HasUnpaved ? "|Unpaved| " : "";
+            specialties += HasCountryCross ? "|Country Cross|" : "";
+            return string.IsNullOrWhiteSpace(specialties) ? "None" : specialties;
+        }
+
         public void LoadImage(IFileService fileService)
         {
             Image = HelperBase.LoadImage(fileService.GetImageBytes(ImagePath));

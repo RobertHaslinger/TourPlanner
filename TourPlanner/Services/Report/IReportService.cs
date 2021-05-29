@@ -10,6 +10,6 @@ namespace TourPlanner.Services.Report
     public interface IReportService
     {
         void GenerateReport(Tour tour);
-        void GenerateSummaryReport(List<Tour> tours);
+        void GenerateSummaryReport(string tourName, List<TourLog> logs);
     }
 }

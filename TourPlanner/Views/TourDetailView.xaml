@@ -18,20 +18,35 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20*"></ColumnDefinition>
-                    <ColumnDefinition Width="20*"></ColumnDefinition>
-                    <ColumnDefinition Width="60*"></ColumnDefinition>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="50*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
                 <Label
                 FontWeight="Bold"
                 FontSize="18">Tour</Label>
 
-                <Button
+                <StackPanel
                     Grid.Column="1"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Command="{Binding ShowRouteCommand}"
-                    CommandParameter="{Binding Tour, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">Show Route</Button>
+                    Orientation="Horizontal">
+                    <Button
+                        Margin="0 0 10 0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Command="{Binding ShowRouteCommand}"
+                        CommandParameter="{Binding Tour, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">Show Route</Button>
+                    <Button
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Command="{Binding GenerateTourReportCommand}"
+                        CommandParameter="{Binding Tour, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
+                        <Image
+                            Width="20"
+                            Height="20"
+                            ToolTip="Generate a PDF Report of this tour"
+                            Source="/TourPlanner;component/Images/pdf.png"></Image>
+                    </Button>
+                </StackPanel>
 
                 <StackPanel
                 Grid.Column="2"
@@ -116,6 +131,16 @@
                     Margin="10 5"
                     Command="{Binding Path=AddLogCommand}"
                     CommandParameter="{Binding Tour.Id, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">New Log</Button>
+
+                <Button
+                    Command="{Binding GenerateSummaryReportCommand}"
+                    CommandParameter="{Binding Tour, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
+                    <Image
+                        Width="20"
+                        Height="20"
+                        ToolTip="Generate a summarizing PDF Report of these Logs"
+                        Source="/TourPlanner;component/Images/pdf.png"></Image>
+                </Button>
             </StackPanel>
 
             <DataGrid

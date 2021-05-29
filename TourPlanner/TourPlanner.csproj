@@ -17,6 +17,7 @@
     <None Remove="Images\home.png" />
     <None Remove="Images\json_export.png" />
     <None Remove="Images\json_import.png" />
+    <None Remove="Images\pdf.png" />
     <None Remove="Images\sample_map_600x400.png" />
     <None Remove="Images\settings.png" />
   </ItemGroup>
@@ -25,11 +26,13 @@
     <Resource Include="Images\home.png" />
     <Resource Include="Images\json_export.png" />
     <Resource Include="Images\json_import.png" />
+    <Resource Include="Images\pdf.png" />
     <Resource Include="Images\sample_map_600x400.png" />
     <Resource Include="Images\settings.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="itext7" Version="7.1.15" />
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

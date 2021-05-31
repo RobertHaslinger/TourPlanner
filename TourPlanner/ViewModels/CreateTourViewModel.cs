@@ -456,7 +456,7 @@ namespace TourPlanner.ViewModels
                 HasUnpaved = PreviewRoute.HasUnpaved,
                 HasCountryCross = PreviewRoute.HasCountryCross
             };
-            string imagePath;
+            string imagePath="";
             if (_databaseService.AddTour(tour, out imagePath) && _fileService.SaveImage(imagePath, tour.Image))
             {
                 ((Window)obj).Close();

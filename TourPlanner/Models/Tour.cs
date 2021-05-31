@@ -15,7 +15,7 @@ namespace TourPlanner.Models
 {
     public class Tour : NotifyPropertyChangedBase
     {
-        public string ImagePath { get; }
+        public string ImagePath { get; set; }
         #region Properties
 
         private bool _hasTollRoad;

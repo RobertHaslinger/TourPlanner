@@ -54,17 +54,17 @@ namespace TourPlanner.ViewModels
             set { _rating = value; OnPropertyChanged(); }
         }
 
-        private double _distance;
+        private double? _distance;
 
-        public double Distance
+        public double? Distance
         {
             get { return _distance; }
             set { _distance = value; OnPropertyChanged(); }
         }
 
-        private double _energyUnitUsed;
+        private double? _energyUnitUsed;
 
-        public double EnergyUnitUsed
+        public double? EnergyUnitUsed
         {
             get { return _energyUnitUsed; }
             set { _energyUnitUsed = value; OnPropertyChanged(); }
@@ -102,9 +102,9 @@ namespace TourPlanner.ViewModels
         }
 
 
-        private double _averageSpeed;
+        private double? _averageSpeed;
 
-        public double AverageSpeed
+        public double? AverageSpeed
         {
             get { return _averageSpeed; }
             set { _averageSpeed = value; OnPropertyChanged(); }
@@ -145,9 +145,9 @@ namespace TourPlanner.ViewModels
                 Report = Report,
                 Vehicle = Vehicle,
                 Rating = Rating,
-                AverageSpeed = AverageSpeed,
-                Distance = Distance,
-                EnergyUnitUsed = EnergyUnitUsed,
+                AverageSpeed = AverageSpeed ?? 0,
+                Distance = Distance ?? 0,
+                EnergyUnitUsed = EnergyUnitUsed ?? 0,
                 TotalTime = TotalTime,
                 TourId = TourId
             };

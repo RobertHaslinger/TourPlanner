@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner", "TourPlanner\TourPlanner.csproj", "{4611A502-A142-4FC9-A748-A2387F7B9BDE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.DataAccessLayer", "TourPlanner.DataAccessLayer\TourPlanner.DataAccessLayer.csproj", "{BC9A82B4-3E97-4F81-A785-A5B47FFEFD54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.JsonModels", "TourPlanner.DataAccessLayer\TourPlanner.JsonModels.csproj", "{BC9A82B4-3E97-4F81-A785-A5B47FFEFD54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.Test", "TourPlanner.Test\TourPlanner.Test.csproj", "{B8AA5768-4130-49C4-9E84-9F579438486C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner.Test", "TourPlanner.Test\TourPlanner.Test.csproj", "{B8AA5768-4130-49C4-9E84-9F579438486C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

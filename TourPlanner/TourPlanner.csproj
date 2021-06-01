@@ -40,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TourPlanner.DataAccessLayer\TourPlanner.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\TourPlanner.DataAccessLayer\TourPlanner.JsonModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

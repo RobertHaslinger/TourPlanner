@@ -25,16 +25,25 @@
             <ColumnDefinition Width="60*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBlock
+        <local:SearchView
             Grid.Row="0"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Text="{Binding GreetMessage}"
             VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            FontWeight="Bold"></TextBlock>
+            HorizontalAlignment="Left"
+            SearchTextChangedCommand="{Binding Path=DataContext.SearchTextChangedCommand, ElementName=TourList}">
+            <b:Interaction.Triggers>
+                <b:EventTrigger
+                    EventName="SearchTextChanged">
+                    <b:InvokeCommandAction
+                        EventArgsParameterPath="Text"
+                        Command="{Binding Path=SearchTextChangedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:SearchView}}}"></b:InvokeCommandAction>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+        </local:SearchView>
 
         <local:TourListView
+            x:Name="TourList"
             Grid.Row="1"
             Grid.Column="0"
             SelectedTourChangedCommand="{Binding Path=DataContext.SelectedTourChangedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}">

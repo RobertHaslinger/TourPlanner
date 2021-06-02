@@ -50,7 +50,6 @@ namespace TourPlanner.ViewModels
         public ICommand SelectedTourCopiedCommand => new RelayCommand(OnSelectedTourCopiedCommandExecuted);
         public ICommand SelectedTourDeletedCommand => new RelayCommand(OnSelectedTourDeletedCommandExecuted);
 
-
         private void OnSelectedTourEditedCommandExecuted(object obj)
         {
             Tour tour = (Tour) obj;

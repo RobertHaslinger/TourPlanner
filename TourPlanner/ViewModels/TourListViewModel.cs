@@ -49,6 +49,13 @@ namespace TourPlanner.ViewModels
         public ICommand AddTourCommand => new RelayCommand(AddTour);
         public ICommand ImportJsonCommand => new RelayCommand(ImportJson);
         public ICommand ExportJsonCommand => new RelayCommand(ExportJson);
+        public ICommand SearchTextChangedCommand => new RelayCommand(OnSearchTextChangedCommandExecuted);
+
+        private void OnSearchTextChangedCommandExecuted(object obj)
+        {
+            string search = obj.ToString();
+            UpdateTours(search);
+        }
 
         private void ImportJson(object obj)
         {
@@ -73,7 +80,7 @@ namespace TourPlanner.ViewModels
             GetWindowFactory("CreateTourViewFactory").CreateWindow().Show();
         }
 
-        public void UpdateTours()
+        public void UpdateTours(string search="")
         {
             Tours = new ObservableCollection<Tour>(_databaseService.GetTours());_databaseService.GetTours();
             foreach (Tour tour in Tours)
@@ -81,6 +88,8 @@ namespace TourPlanner.ViewModels
                 tour.LoadImage(_fileService);
                 tour.LoadLogs(_databaseService);
             }
+
+            Tours = new ObservableCollection<Tour>(Tours.Where(t => t.Name.Contains(search, StringComparison.CurrentCultureIgnoreCase)));
         }
 
         public void Update(ISubject subject)

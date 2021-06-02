@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -44,11 +46,31 @@ namespace TourPlanner.ViewModels
             set { _selectedTour = value; OnPropertyChanged();}
         }
 
+        private ObservableCollection<TourLog> _selectedTourLogs;
+
+        public ObservableCollection<TourLog> SelectedTourLogs
+        {
+            get { return _selectedTourLogs; }
+            set { _selectedTourLogs = value; OnPropertyChanged();}
+        }
 
         public ICommand SelectedTourChangedCommand => new RelayCommand(OnSelectedTourChangedCommandExecuted);
         public ICommand SelectedTourEditedCommand => new RelayCommand(OnSelectedTourEditedCommandExecuted);
         public ICommand SelectedTourCopiedCommand => new RelayCommand(OnSelectedTourCopiedCommandExecuted);
         public ICommand SelectedTourDeletedCommand => new RelayCommand(OnSelectedTourDeletedCommandExecuted);
+        public ICommand SearchTextChangedCommand => new RelayCommand(OnSearchTextChangedCommandExecuted);
+
+        private void OnSearchTextChangedCommandExecuted(object obj)
+        {
+            string search = obj.ToString();
+            if (SelectedTour == null)
+            {
+                return;
+            }
+
+
+            SelectedTourLogs = new ObservableCollection<TourLog>(SelectedTour.Logs.Where(l => l.Name.Contains(search, StringComparison.InvariantCultureIgnoreCase)));
+        }
 
         private void OnSelectedTourEditedCommandExecuted(object obj)
         {
@@ -103,6 +125,7 @@ namespace TourPlanner.ViewModels
         private void OnSelectedTourChangedCommandExecuted(object obj)
         {
             SelectedTour = (Tour) obj;
+            SelectedTourLogs = SelectedTour != null ? SelectedTour.Logs : new ObservableCollection<TourLog>();
         }
 
         private void LoadGreetMessage()

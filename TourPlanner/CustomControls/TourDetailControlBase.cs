@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,15 @@ namespace TourPlanner.CustomControls
         {
             get { return (Tour) GetValue(TourProperty); }
             set { SetValue(TourProperty, value); }
+        }
+
+        public static readonly DependencyProperty TourLogsProperty = DependencyProperty.Register(
+            "TourLogs", typeof(ObservableCollection<TourLog>), typeof(TourDetailControlBase), new PropertyMetadata(default(ObservableCollection<TourLog>)));
+
+        public ObservableCollection<TourLog> TourLogs
+        {
+            get { return (ObservableCollection<TourLog>)GetValue(TourLogsProperty); }
+            set { SetValue(TourLogsProperty, value); }
         }
 
         public static readonly RoutedEvent TourEditedEvent = EventManager.RegisterRoutedEvent(

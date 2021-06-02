@@ -61,6 +61,7 @@
             Grid.Row="1"
             Grid.Column="1"
             Height="{Binding Path=DataContext.SelectedTour, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Converter={StaticResource TourToHeightConverter}}"
+            TourLogs="{Binding Path=DataContext.SelectedTourLogs, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
             Tour="{Binding Path=DataContext.SelectedTour, Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
             SelectedTourEditedCommand="{Binding Path=DataContext.SelectedTourEditedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"
             SelectedTourDeletedCommand="{Binding Path=DataContext.SelectedTourDeletedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}}"

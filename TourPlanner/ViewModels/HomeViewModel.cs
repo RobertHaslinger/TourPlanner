@@ -107,7 +107,7 @@ namespace TourPlanner.ViewModels
         private void OnSelectedTourCopiedCommandExecuted(object obj)
         {
             Tour tour = (Tour)obj;
-            string imagePath;
+            string imagePath="";
             if (_databaseService.AddTour(tour, out imagePath) && _fileService.SaveImage(imagePath, tour.Image))
             {
                 BaseObserverSingleton.GetInstance.TourObservers.ForEach(Attach);

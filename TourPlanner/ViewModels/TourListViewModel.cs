@@ -82,7 +82,7 @@ namespace TourPlanner.ViewModels
 
         public void UpdateTours(string search="")
         {
-            Tours = new ObservableCollection<Tour>(_databaseService.GetTours());_databaseService.GetTours();
+            Tours = new ObservableCollection<Tour>(_databaseService.GetTours());
             foreach (Tour tour in Tours)
             {
                 tour.LoadImage(_fileService);

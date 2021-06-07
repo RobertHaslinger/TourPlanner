@@ -62,7 +62,8 @@ namespace TourPlanner.ViewModels
                     if (string.IsNullOrWhiteSpace(tour.Name) || string.IsNullOrWhiteSpace(tour.StartLocation) ||
                         string.IsNullOrWhiteSpace(tour.EndLocation))
                     {
-                        throw new JsonException();
+                        MessageBox.Show("Skipping tour, because there is no name, no start location or no end location", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
                     }
                     tour.Image = await _mapService.GetMapWithStrings(tour.StartLocation, tour.EndLocation);
                     string imagePath;
